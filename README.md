@@ -1,43 +1,29 @@
-# Astro Starter Kit: Minimal
+# Civago — Sito Ufficiale
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Sito web del comune di **Civago**, borgata dell'Alto Appennino Reggiano (Villaminozzo, RE) a 1.200 m s.l.m.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+🌐 **Online su:** [civago-sito.netlify.app](https://civago-sito.netlify.app)
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## Contenuti
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- **Homepage** — webcam live (Piazza + Ponte del Dolo), meteo 4 giorni
+- **Scopri** — storia, geografia, la torre dell'Amorotto
+- **Esplora** — 13 sentieri con mappa interattiva
+- **Cultura** — ricettario (19 ricette), poesie, dizionario dialettale
+- **Foto** — 327 immagini scaricate dall'archivio storico
+- **Comunità** — calendario eventi, notizie
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Come aggiornare il sito
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Per modificare o aggiungere contenuti, contatta chi gestisce il progetto.
+Il sito si aggiorna automaticamente su Netlify ad ogni modifica.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Tecnologie usate
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- [Astro](https://astro.build) — generatore di siti statici
+- [Tailwind CSS](https://tailwindcss.com) — stile
+- [Leaflet](https://leafletjs.com) — mappa interattiva sentieri
+- [Open-Meteo](https://open-meteo.com) — meteo gratuito senza API key
+- [Netlify](https://netlify.com) — hosting gratuito
