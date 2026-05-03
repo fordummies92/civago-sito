@@ -27,3 +27,4 @@ Il sito si aggiorna automaticamente su Netlify ad ogni modifica.
 - [Leaflet](https://leafletjs.com) — mappa interattiva sentieri
 - [Open-Meteo](https://open-meteo.com) — meteo gratuito senza API key
 - [Netlify](https://netlify.com) — hosting gratuito
+- [Claude Code](https://claude.ai/code) — progettazione, sviluppo e scraping dei contenuti dal sito originale
