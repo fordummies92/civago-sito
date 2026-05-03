@@ -1,0 +1,355 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const BASE_PATH = '/Users/marconasu/Desktop/dummies/civago-sito/public/immagini/gallerie';
+
+function leggiImmagini(cartella: string): string[] {
+  const full = path.join(BASE_PATH, cartella);
+  if (!fs.existsSync(full)) return [];
+  return fs.readdirSync(full)
+    .filter(f => /\.(jpg|jpeg|png|JPG|JPEG|PNG)$/i.test(f))
+    .sort();
+}
+
+const gruppi = [
+  {
+    id: 'luoghi-persone',
+    titolo: 'Luoghi e Persone',
+    icona: '🏘️',
+    desc: 'Civago e la sua gente: panorami, case, pastori, mulini, la Torre dell\'Amorotto.',
+    gallerie: [
+      { nome: 'Luoghi e Persone (Siro Caniparoli)', dir: 'siro_luoghi' },
+      { nome: 'Oggetti di Affezione (Willer Barbieri)', dir: 'willer_gallery' },
+      { nome: 'Paesaggi Estivi (Marcellino Marchi)', dir: 'marcello_estate' },
+    ]
+  },
+  {
+    id: 'natura',
+    titolo: 'Natura & Paesaggi',
+    icona: '🌿',
+    desc: 'Fiori, funghi, cascate, escursioni invernali — la natura dell\'Appennino.',
+    gallerie: [
+      { nome: 'Fiori (Siro Caniparoli)', dir: 'siro_fiori' },
+      { nome: 'Fiori (Marcellino Marchi)', dir: 'marcello_fiori' },
+      { nome: 'Le Quattro Stagioni (Piero Gaspari)', dir: 'piero_gaspari' },
+      { nome: 'Escursioni Invernali (Marcellino Marchi)', dir: 'marcello_inverno' },
+      { nome: 'Sul Riaccio - Enzo Monti Pesca (Willer Barbieri)', dir: 'willer_riaccio' },
+      { nome: 'Paesaggi Appennino (Siro Caniparoli)', dir: 'siro_paesaggi' },
+    ]
+  },
+  {
+    id: 'mangialonga',
+    titolo: 'Mangialonga',
+    icona: '🥾',
+    desc: 'La tradizionale escursione gastronomica tra i borghi di Civago.',
+    gallerie: [
+      { nome: 'Mangialonga 2009 (Siro Caniparoli)', dir: 'siro_mangialonga_2009' },
+      { nome: 'Mangialonga 2008 (Siro Caniparoli)', dir: 'siro_mangialonga_2008' },
+      { nome: 'Mangialonga 2008 (Willer Barbieri)', dir: 'mangialonga_2008' },
+      { nome: 'Mangialonga 2007 (Siro Caniparoli)', dir: 'siro_mangialonga_2007' },
+    ]
+  },
+  {
+    id: 'via-costa',
+    titolo: 'Via Costa & Bainait',
+    icona: '🌙',
+    desc: 'Le feste di Via Costa by Night: atmosfera notturna, luci, musica, comunità.',
+    gallerie: [
+      { nome: 'Via Costa by Night 2009 (Siro Caniparoli)', dir: 'siro_viacosta_2009' },
+      { nome: 'Via Costa by Night 2008 (Siro Caniparoli)', dir: 'siro_via_costa_2008' },
+      { nome: 'Via Costa by Night 2008 (Willer Barbieri)', dir: 'viacosta_2008' },
+      { nome: 'Via Costa Bainait 2007', dir: 'viacosta_2007' },
+    ]
+  },
+  {
+    id: 'cultura-eventi',
+    titolo: 'Cultura & Concerti',
+    icona: '🎵',
+    desc: 'Lettura delle poesie di Ralfo Monti, tributo a De André con Nuvole Barocche, eventi culturali.',
+    gallerie: [
+      { nome: 'Lettura Poesie Ralfo Monti 2009', dir: 'lettura_poesie_ralfo' },
+      { nome: 'Nuvole Barocche — Tributo a De André 2009', dir: 'nuvole_barocche_2009' },
+      { nome: 'Installazione Defibrillatore 2016', dir: 'defibrillatore_24_04_16' },
+    ]
+  },
+];
+
+// Attach actual images to each gallery
+const gruppiConFoto = gruppi.map(g => ({
+  ...g,
+  gallerie: g.gallerie.map(gal => ({
+    ...gal,
+    immagini: leggiImmagini(gal.dir)
+  })).filter(gal => gal.immagini.length > 0),
+  copertina: (() => {
+    for (const gal of g.gallerie) {
+      const imgs = leggiImmagini(gal.dir);
+      if (imgs.length > 0) return `/immagini/gallerie/${gal.dir}/${imgs[0]}`;
+    }
+    return null;
+  })()
+})).filter(g => g.gallerie.length > 0);
+
+const totaleFoto = gruppiConFoto.reduce((sum, g) =>
+  sum + g.gallerie.reduce((s2, gal) => s2 + gal.immagini.length, 0), 0);
+---
+
+<Layout title="Archivio Fotografico" description="Oltre 300 fotografie di Civago: paesaggi, Mangialonga, Via Costa, natura, eventi culturali.">
+
+  <!-- Hero -->
+  <div style="background: linear-gradient(135deg, #1a1a2e, #2D5016)" class="py-14 px-4 text-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">📸 Archivio Fotografico</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Gallerie di Civago</h1>
+      <p class="text-white/75 text-lg max-w-xl">
+        {totaleFoto} fotografie di Civago e dell'Alto Appennino: paesaggi, feste, natura, momenti di comunità.
+      </p>
+    </div>
+  </div>
+
+  <!-- Navigazione rapida tra gruppi -->
+  <div class="sticky top-16 z-30 border-b" style="background:var(--beige);border-color:var(--beige-scuro)">
+    <div class="max-w-6xl mx-auto px-4 overflow-x-auto">
+      <div class="flex gap-1 py-2 whitespace-nowrap">
+        {gruppiConFoto.map(g => (
+          <a href={`#${g.id}`}
+             class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
+             style="color:var(--verde-bosco)"
+             onmouseenter="this.style.background='var(--beige-scuro)'"
+             onmouseleave="this.style.background=''"
+          >
+            {g.icona} {g.titolo}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-10">
+
+    {gruppiConFoto.map(g => (
+      <section id={g.id} class="mb-16 scroll-mt-32">
+
+        <!-- Intestazione gruppo -->
+        <div class="flex items-end justify-between mb-6 gap-4 flex-wrap">
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold" style="color:var(--verde-bosco)">
+              {g.icona} {g.titolo}
+            </h2>
+            <p class="text-sm mt-1" style="color:var(--testo-muted)">{g.desc}</p>
+          </div>
+          <span class="badge">
+            {g.gallerie.reduce((s, gal) => s + gal.immagini.length, 0)} foto
+          </span>
+        </div>
+
+        {/* Sub-gallerie */}
+        {g.gallerie.map(gal => (
+          <div class="mb-8">
+            <button
+              class="gallery-toggle w-full text-left flex items-center justify-between px-4 py-3 rounded-lg mb-3 font-semibold text-sm transition-colors"
+              style="background:var(--beige-scuro);color:var(--marrone-scuro)"
+              data-target={`grid-${gal.dir}`}
+            >
+              <span>📁 {gal.nome} <span class="font-normal opacity-70">({gal.immagini.length} foto)</span></span>
+              <span class="toggle-arrow transition-transform">▼</span>
+            </button>
+
+            <div id={`grid-${gal.dir}`} class="gallery-grid hidden">
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+                {gal.immagini.map((img, idx) => (
+                  <button
+                    class="lightbox-trigger aspect-square overflow-hidden rounded-lg group focus:outline-none focus:ring-2"
+                    style="--focus-ring:var(--verde-salvia)"
+                    data-src={`/immagini/gallerie/${gal.dir}/${img}`}
+                    data-gallery={gal.dir}
+                    data-index={idx}
+                    data-caption={img.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ')}
+                  >
+                    <img
+                      src={`/immagini/gallerie/${gal.dir}/${img}`}
+                      alt={img.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ')}
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
+    ))}
+
+    <!-- Don Paolo / Amarcord / Cartoline (link al sito vecchio) -->
+    <section class="mb-16">
+      <h2 class="text-2xl md:text-3xl font-bold mb-2" style="color:var(--verde-bosco)">
+        📷 Archivio Storico
+      </h2>
+      <p class="text-sm mb-6" style="color:var(--testo-muted)">
+        Le fotografie storiche di Don Paolo Tazzioli, l'Amarcord e le cartoline d'epoca sono ancora consultabili sul sito originale.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a href="https://www.civago.it/le-foto-di-don-paolo.html" target="_blank" rel="noopener"
+           class="card p-6 block group">
+          <div class="text-4xl mb-3">⛪</div>
+          <h3 class="font-bold text-lg mb-1 group-hover:underline" style="color:var(--verde-bosco)">Le Foto di Don Paolo</h3>
+          <p class="text-sm text-stone-500 leading-relaxed mb-3">
+            Oltre 500 immagini scattate da Don Paolo Tazzioli, parroco di Civago per 40 anni (anni '40–'80).
+          </p>
+          <span class="text-xs font-semibold" style="color:var(--marrone)">Vai alle foto →</span>
+        </a>
+        <a href="https://www.civago.it/amarcord.html" target="_blank" rel="noopener"
+           class="card p-6 block group">
+          <div class="text-4xl mb-3">🗃️</div>
+          <h3 class="font-bold text-lg mb-1 group-hover:underline" style="color:var(--verde-bosco)">Amarcord</h3>
+          <p class="text-sm text-stone-500 leading-relaxed mb-3">
+            Dal fondo dei cassetti riappaiono vecchie fotografie: volti, ricordi, storie di comunità.
+          </p>
+          <span class="text-xs font-semibold" style="color:var(--marrone)">Vai alle foto →</span>
+        </a>
+        <a href="https://www.civago.it/civago-in-cartolina.html" target="_blank" rel="noopener"
+           class="card p-6 block group">
+          <div class="text-4xl mb-3">📬</div>
+          <h3 class="font-bold text-lg mb-1 group-hover:underline" style="color:var(--verde-bosco)">Civago in Cartolina</h3>
+          <p class="text-sm text-stone-500 leading-relaxed mb-3">
+            Cartoline d'epoca dagli anni '20 agli anni '50: panoramiche, vedute storiche, l'Albergo Ponte.
+          </p>
+          <span class="text-xs font-semibold" style="color:var(--marrone)">Vai alle foto →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Invia le tue foto -->
+    <div class="card p-8" style="background:var(--verde-bosco)">
+      <div class="flex flex-col md:flex-row items-center gap-6 text-white">
+        <div class="text-5xl flex-shrink-0">📤</div>
+        <div class="flex-1 text-center md:text-left">
+          <h3 class="text-2xl font-bold text-white mb-2">Hai foto di Civago?</h3>
+          <p class="text-white/75 text-sm leading-relaxed mb-4">
+            Condividile con la comunità! Manda le tue foto (anche vecchie, anche in bianco e nero)
+            a info@civago.it e le aggiungiamo all'archivio con il tuo nome.
+          </p>
+          <a href="mailto:info@civago.it?subject=Le mie foto di Civago" class="btn-outline" style="border-color:white;color:white">
+            📧 Invia le tue foto
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center" style="background:rgba(0,0,0,0.92)">
+    <button id="lb-close" class="absolute top-4 right-4 text-white text-3xl font-bold w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors" aria-label="Chiudi">✕</button>
+    <button id="lb-prev" class="absolute left-2 md:left-6 text-white text-4xl w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors" aria-label="Precedente">‹</button>
+    <button id="lb-next" class="absolute right-2 md:right-6 text-white text-4xl w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors" aria-label="Successiva">›</button>
+    <div class="px-16 max-w-5xl max-h-screen flex flex-col items-center gap-3">
+      <img id="lb-img" src="" alt="" class="max-h-[80vh] max-w-full rounded-lg shadow-2xl object-contain" />
+      <p id="lb-caption" class="text-white/70 text-sm text-center capitalize"></p>
+      <p id="lb-counter" class="text-white/40 text-xs"></p>
+    </div>
+  </div>
+
+</Layout>
+
+<script>
+// Accordion toggle
+document.querySelectorAll('.gallery-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = (btn as HTMLButtonElement).dataset.target!;
+    const grid = document.getElementById(targetId);
+    const arrow = btn.querySelector('.toggle-arrow') as HTMLElement;
+    if (!grid) return;
+    grid.classList.toggle('hidden');
+    if (arrow) arrow.style.transform = grid.classList.contains('hidden') ? '' : 'rotate(180deg)';
+  });
+});
+
+// Auto-open first gallery in each group on page load
+document.querySelectorAll('.gallery-toggle').forEach((btn, i) => {
+  // Open the first toggle in each section automatically
+  const section = btn.closest('section');
+  if (section && section.querySelector('.gallery-toggle') === btn) {
+    const targetId = (btn as HTMLButtonElement).dataset.target!;
+    const grid = document.getElementById(targetId);
+    const arrow = btn.querySelector('.toggle-arrow') as HTMLElement;
+    if (grid) {
+      grid.classList.remove('hidden');
+      if (arrow) arrow.style.transform = 'rotate(180deg)';
+    }
+  }
+});
+
+// Lightbox
+let currentGallery: string[] = [];
+let currentIndex = 0;
+
+const lb = document.getElementById('lightbox')!;
+const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+const lbCaption = document.getElementById('lb-caption')!;
+const lbCounter = document.getElementById('lb-counter')!;
+
+function apriLightbox(src: string, gallery: string, index: number, caption: string) {
+  // Build gallery array from DOM
+  currentGallery = Array.from(
+    document.querySelectorAll(`[data-gallery="${gallery}"]`)
+  ).map(el => (el as HTMLButtonElement).dataset.src!);
+  currentIndex = index;
+  mostraImmagine(currentIndex);
+  lb.classList.remove('hidden');
+  lb.classList.add('flex');
+  document.body.style.overflow = 'hidden';
+}
+
+function mostraImmagine(idx: number) {
+  const triggers = document.querySelectorAll(`[data-gallery="${currentGalleryName()}"]`);
+  const trigger = triggers[idx] as HTMLButtonElement;
+  lbImg.src = currentGallery[idx];
+  lbImg.alt = trigger?.dataset.caption || '';
+  lbCaption.textContent = trigger?.dataset.caption || '';
+  lbCounter.textContent = `${idx + 1} / ${currentGallery.length}`;
+  currentIndex = idx;
+}
+
+function currentGalleryName(): string {
+  const img = currentGallery[0];
+  if (!img) return '';
+  const parts = img.split('/');
+  return parts[parts.length - 2] || '';
+}
+
+function chiudiLightbox() {
+  lb.classList.add('hidden');
+  lb.classList.remove('flex');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.lightbox-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const b = btn as HTMLButtonElement;
+    apriLightbox(b.dataset.src!, b.dataset.gallery!, parseInt(b.dataset.index!), b.dataset.caption!);
+  });
+});
+
+document.getElementById('lb-close')!.addEventListener('click', chiudiLightbox);
+document.getElementById('lb-prev')!.addEventListener('click', () => {
+  mostraImmagine((currentIndex - 1 + currentGallery.length) % currentGallery.length);
+});
+document.getElementById('lb-next')!.addEventListener('click', () => {
+  mostraImmagine((currentIndex + 1) % currentGallery.length);
+});
+
+lb.addEventListener('click', (e) => {
+  if (e.target === lb) chiudiLightbox();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (lb.classList.contains('hidden')) return;
+  if (e.key === 'Escape') chiudiLightbox();
+  if (e.key === 'ArrowLeft') mostraImmagine((currentIndex - 1 + currentGallery.length) % currentGallery.length);
+  if (e.key === 'ArrowRight') mostraImmagine((currentIndex + 1) % currentGallery.length);
+});
+</script>

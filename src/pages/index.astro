@@ -1,0 +1,370 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const eventi = [
+  { data: "28 Set 2025", titolo: "Festa del Fungo", descrizione: "La tradizionale sagra del fungo porcino dell'Appennino" },
+  { data: "12 Ott 2025", titolo: "Castagnata", descrizione: "Caldarroste e vin brulé in piazza con tutta la comunità" },
+  { data: "Lug–Ago 2025", titolo: "Estate a Civago", descrizione: "Escursioni guidate, concerti e serate in piazza" },
+];
+
+const sezioni = [
+  { icon: "🏔️", titolo: "Scopri Civago", desc: "Storia, geografia e tutto quello che c'è da sapere sul paese", href: "/scopri", colore: "#2D5016" },
+  { icon: "🥾", titolo: "Esplora i Sentieri", desc: "13 itinerari tra borgate, castagneti e panorami mozzafiato", href: "/esplora", colore: "#6B8F3C" },
+  { icon: "🍄", titolo: "Cultura & Tradizioni", desc: "Ricette antiche, poesie, dialetto e storia millenaria", href: "/cultura", colore: "#8B6914" },
+  { icon: "📸", titolo: "Archivio Fotografico", desc: "500+ foto storiche, gallerie e cartoline d'epoca dal 1929", href: "/foto", colore: "#4A7C59" },
+];
+---
+
+<Layout title="Home" description="Civago — la perla verde dell'Alto Appennino emiliano. Webcam live, meteo, sentieri, cultura e tradizioni.">
+
+  <!-- ═══ HERO COMPATTO ═══ -->
+  <section class="relative overflow-hidden hero-section">
+    <div class="absolute inset-0 bg-gradient-to-br from-stone-700 via-green-900 to-stone-900">
+      <!-- Sostituire con foto reale: <img src="/immagini/hero-civago.jpg" class="w-full h-full object-cover" /> -->
+    </div>
+    <div class="hero-overlay absolute inset-0" />
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 pt-8 pb-6 md:py-16 flex flex-col md:flex-row items-end justify-between gap-6">
+      <div class="fade-up">
+        <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-1 md:mb-2" style="font-family:Georgia,serif">
+          Civago
+        </h1>
+        <p class="hidden md:block text-lg text-white/75 italic mb-6" style="font-family:Georgia">
+          "La perla verde dell'Alto Appennino emiliano"
+        </p>
+        <p class="md:hidden text-sm text-white/65 mb-4">Alto Appennino Reggiano · 1.200 m s.l.m.</p>
+        <div class="flex flex-row gap-2">
+          <a href="/esplora" class="btn-primary text-sm py-2 px-4">🥾 Sentieri</a>
+          <a href="/scopri" class="btn-outline text-sm py-2 px-4" style="border-color:white;color:white">Il paese</a>
+          <a href="#webcam" class="btn-outline text-sm py-2 px-4" style="border-color:white;color:white">📷 Webcam</a>
+        </div>
+      </div>
+
+      <!-- Meteo inline nell'hero — visibile solo su desktop -->
+      <div class="hidden md:flex flex-shrink-0 rounded-2xl px-5 py-4 items-center gap-4" style="background:rgba(0,0,0,0.35);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.15)">
+        <div class="text-4xl" id="meteo-icona-hero">⏳</div>
+        <div>
+          <div class="text-2xl font-bold text-white" id="meteo-temp-hero">--°C</div>
+          <div class="text-white/70 text-sm" id="meteo-desc-hero">Caricamento…</div>
+          <div class="text-white/50 text-xs mt-0.5">Civago, ora</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- WEBCAM + METEO 4 GIORNI — PRIMA SEZIONE VERA          -->
+  <!-- "Prima di venire su, controlla com'è"                  -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="webcam" style="background: var(--verde-bosco)" class="py-5 md:py-10 px-4">
+    <div class="max-w-6xl mx-auto">
+
+      <!-- Titolo sezione + meteo mobile inline -->
+      <div class="flex items-center justify-between gap-3 mb-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-400 animate-pulse flex-shrink-0"></span>
+          <h2 class="text-base md:text-xl font-bold text-white">Civago in questo momento</h2>
+          <span class="hidden md:inline text-white/50 text-sm">— aggiorna ogni minuto</span>
+        </div>
+        <!-- Meteo compatto solo mobile -->
+        <div class="flex md:hidden items-center gap-2 rounded-xl px-3 py-1.5" style="background:rgba(255,255,255,0.12)">
+          <span class="text-xl" id="meteo-icona-hero">⏳</span>
+          <span class="font-bold text-white text-sm" id="meteo-temp-hero">--°C</span>
+          <span class="text-white/60 text-xs" id="meteo-desc-hero"></span>
+        </div>
+      </div>
+
+      <!-- Grid: Webcam grande + Meteo 4 giorni -->
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-5">
+
+        <!-- WEBCAM — occupa 3/5 dello spazio su desktop -->
+        <div class="lg:col-span-3 flex flex-col gap-3">
+
+          <!-- Tab selettore webcam -->
+          <div class="flex gap-2">
+            <button id="tab-piazza" onclick="selezionaWebcam('piazza')"
+              class="webcam-tab flex-1 py-2 rounded-xl text-xs font-bold text-white transition-all"
+              style="background:rgba(255,255,255,0.25)">
+              📷 Piazza di Civago
+            </button>
+            <button id="tab-dolo" onclick="selezionaWebcam('dolo')"
+              class="webcam-tab flex-1 py-2 rounded-xl text-xs font-bold transition-all"
+              style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)">
+              🌊 Ponte del Dolo
+            </button>
+          </div>
+
+          <!-- Contenitore immagine webcam -->
+          <div class="rounded-2xl overflow-hidden shadow-2xl" style="border: 2px solid rgba(255,255,255,0.15)">
+            <div class="relative bg-black" style="padding-top: 56.25%">
+              <img
+                src="http://www.cmelettroimpianti.it/webcam/civago000M.jpg"
+                alt="Webcam Civago — live"
+                class="absolute inset-0 w-full h-full object-cover"
+                id="webcam-img"
+              />
+              <!-- Badge LIVE -->
+              <div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold text-white" style="background:rgba(220,38,38,0.85)">
+                <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                LIVE
+              </div>
+              <!-- Label posizione -->
+              <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full text-xs text-white/80" style="background:rgba(0,0,0,0.5)" id="webcam-label">
+                📷 Piazza di Civago
+              </div>
+            </div>
+            <!-- Footer webcam -->
+            <div class="flex items-center justify-between px-4 py-2.5" style="background:rgba(0,0,0,0.4)">
+              <span class="text-white/60 text-xs">Aggiornamento automatico ogni 60 sec.</span>
+              <button
+                id="btn-aggiorna"
+                class="text-xs font-semibold text-white/80 hover:text-white transition-colors flex items-center gap-1"
+              >
+                ↺ Aggiorna ora
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- METEO 4 GIORNI — occupa 2/5 dello spazio -->
+        <div class="lg:col-span-2 flex flex-col gap-3">
+
+          <!-- Card meteo oggi — grande -->
+          <div class="rounded-2xl p-5 flex items-center gap-4" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2)">
+            <div class="text-5xl" id="m-icona-0">⏳</div>
+            <div>
+              <div class="text-3xl font-bold text-white" id="m-temp-0">--°C</div>
+              <div class="text-white/70 text-sm mt-0.5" id="m-desc-0">Caricamento…</div>
+              <div class="text-white/50 text-xs mt-1">📅 Oggi a Civago</div>
+            </div>
+          </div>
+
+          <!-- Prossimi 3 giorni — compatti -->
+          <div class="grid grid-cols-3 gap-2 flex-1">
+            {[1,2,3].map(i => (
+              <div class="rounded-xl p-3 text-center" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12)">
+                <div class="text-2xl mb-1" id={`m-icona-${i}`}>⏳</div>
+                <div class="text-white font-semibold text-sm" id={`m-temp-${i}`}>--</div>
+                <div class="text-white/50 text-xs mt-1" id={`m-giorno-${i}`}>…</div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Link prossimo evento -->
+          <div class="rounded-2xl p-4" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12)">
+            <div class="text-white/50 text-xs uppercase tracking-wider mb-1">Prossimo evento</div>
+            <div class="font-semibold text-white">🍄 {eventi[0].titolo}</div>
+            <div class="text-white/60 text-xs mt-0.5">{eventi[0].data}</div>
+            <a href="/comunita#calendario" class="text-xs mt-2 block underline" style="color:var(--verde-chiaro)">
+              → Calendario completo
+            </a>
+          </div>
+
+          <!-- Fonte meteo -->
+          <p class="text-white/30 text-xs text-right">
+            Fonte: Open-Meteo · 44.274°N 10.407°E
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SEZIONI PRINCIPALI ═══ -->
+  <section class="max-w-6xl mx-auto px-4 py-16">
+    <div class="text-center mb-10">
+      <h2 class="section-title">Cosa trovi su questo sito</h2>
+      <p class="section-subtitle">Tutto quello che c'è da sapere, vedere e vivere a Civago</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {sezioni.map(s => (
+        <a href={s.href} class="card group block p-6 text-center no-underline">
+          <div class="text-4xl mb-3">{s.icon}</div>
+          <h3 class="font-bold text-lg mb-2 group-hover:underline" style={`color:${s.colore}`}>{s.titolo}</h3>
+          <p class="text-sm text-stone-500 leading-relaxed">{s.desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══ PREVIEW SENTIERI ═══ -->
+  <section class="py-14 px-4" style="background:var(--verde-bosco)">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+      <div class="text-white max-w-lg">
+        <h2 class="text-3xl font-bold text-white mb-3">🥾 13 sentieri tra le borgate</h2>
+        <p class="text-white/80 text-lg mb-6 leading-relaxed">
+          Dalle maestà del '700 ai castagneti centenari: percorri a piedi la rete di mulattiere che collega le borgate di Civago.
+        </p>
+        <a href="/esplora" class="btn-outline" style="border-color:white;color:white">Vedi mappa e sentieri →</a>
+      </div>
+      <div class="flex-1 grid grid-cols-3 gap-2 text-white/70 text-sm">
+        {["Piazza → Lavatoio","Lavatoio → Mulino","Mulino → Lame Piane","Casa dell'Abate → Romita","Via della Garfagnana","Torre dell'Amorotto → Gazzano"].map(s => (
+          <div class="rounded-lg px-3 py-2 text-center text-xs" style="background:rgba(255,255,255,0.1)">
+            {s}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EVENTI / CALENDARIO PREVIEW ═══ -->
+  <section class="max-w-6xl mx-auto px-4 py-14">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="section-title">📅 Prossimi eventi</h2>
+        <p class="section-subtitle mb-0">Cosa succede a Civago</p>
+      </div>
+      <a href="/comunita#calendario" class="btn-outline text-sm">Calendario completo →</a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {eventi.map(e => (
+        <div class="card p-6">
+          <div class="badge mb-3">📅 {e.data}</div>
+          <h3 class="font-bold text-lg mb-2" style="color:var(--verde-bosco)">{e.titolo}</h3>
+          <p class="text-sm text-stone-500">{e.descrizione}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══ RICETTA IN EVIDENZA ═══ -->
+  <section class="py-14 px-4" style="background:var(--beige-scuro)">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+      <div class="text-6xl flex-shrink-0">🍂</div>
+      <div class="flex-1">
+        <div class="badge mb-2">Ricetta del mese</div>
+        <h3 class="text-2xl font-bold mb-2" style="color:var(--marrone-scuro)">Vinada</h3>
+        <p class="text-stone-600 leading-relaxed mb-4">
+          Farina di castagne sciolta in vino rosso caldo e acqua: il piatto più antico di Civago, cibo dei boscaioli nelle notti d'inverno sull'Appennino.
+        </p>
+        <a href="/cultura/ricettario" class="btn-outline">Scopri tutte le ricette →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ POESIA IN EVIDENZA ═══ -->
+  <section class="max-w-6xl mx-auto px-4 py-14">
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="badge mb-4">Poesia</div>
+      <h3 class="text-2xl font-bold mb-6" style="color:var(--verde-bosco)">Civago — Ralfo Monti</h3>
+      <div class="poesia text-lg text-stone-700 mb-6">
+D'inverno il mio paese riesce a stento
+fra l'alta neve a fare capolino;
+sembra un abbandonato monumento
+precipitato giù per il Ravino.
+
+D'estate, quando spira un po' di vento
+somiglia invece a un vispo ragazzino
+che non riesce a star fermo un sol momento
+e gioca in mezzo al verde a nascondino.
+      </div>
+      <a href="/cultura/poesie" class="btn-outline">Leggi tutte le poesie →</a>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+// ═══ METEO via Open-Meteo ═══
+async function caricaMeteo() {
+  try {
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=44.274&longitude=10.407&current=temperature_2m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe%2FRome&forecast_days=4';
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const wmoIcons: Record<number, string> = {
+      0:'☀️',1:'🌤️',2:'⛅',3:'☁️',
+      45:'🌫️',48:'🌫️',
+      51:'🌦️',53:'🌦️',55:'🌧️',
+      61:'🌧️',63:'🌧️',65:'🌧️',
+      71:'❄️',73:'❄️',75:'❄️',77:'🌨️',
+      80:'🌦️',81:'🌧️',82:'⛈️',
+      85:'🌨️',86:'🌨️',
+      95:'⛈️',96:'⛈️',99:'⛈️',
+    };
+    const wmoDesc: Record<number, string> = {
+      0:'Cielo sereno',1:'Poco nuvoloso',2:'Nuvoloso',3:'Coperto',
+      45:'Nebbia',48:'Nebbia con brina',
+      51:'Pioviggine',53:'Pioviggine',55:'Pioggia debole',
+      61:'Pioggia',63:'Pioggia',65:'Pioggia intensa',
+      71:'Neve',73:'Neve',75:'Nevicata intensa',
+      80:'Rovesci',81:'Rovesci',82:'Rovesci intensi',
+      95:'Temporale',96:'Temporale con grandine',99:'Temporale forte',
+    };
+    const icona = (c: number) => wmoIcons[c] ?? '🌡️';
+    const desc  = (c: number) => wmoDesc[c] ?? '';
+
+    const cur  = data.current;
+    const temp = Math.round(cur.temperature_2m);
+    const code = cur.weathercode;
+
+    // Hero (mini)
+    const hi = document.getElementById('meteo-icona-hero');
+    const ht = document.getElementById('meteo-temp-hero');
+    const hd = document.getElementById('meteo-desc-hero');
+    if (hi) hi.textContent = icona(code);
+    if (ht) ht.textContent = `${temp}°C`;
+    if (hd) hd.textContent = desc(code);
+
+    // Sezione webcam/meteo principale
+    const giorni = ['Oggi','Domani','Dopodomani','Tra 3 gg'];
+    for (let i = 0; i < 4; i++) {
+      const tMax = Math.round(data.daily.temperature_2m_max[i]);
+      const tMin = Math.round(data.daily.temperature_2m_min[i]);
+      const wc   = data.daily.weathercode[i];
+      const ii = document.getElementById(`m-icona-${i}`);
+      const ti = document.getElementById(`m-temp-${i}`);
+      const gi = document.getElementById(`m-giorno-${i}`);
+      const di = document.getElementById(`m-desc-${i}`);
+      if (ii) ii.textContent = icona(wc);
+      if (ti) ti.textContent = i === 0 ? `${temp}°C` : `${tMax}°/${tMin}°`;
+      if (gi) gi.textContent = giorni[i];
+      if (di) di.textContent = desc(wc); // solo per "oggi"
+    }
+  } catch (e) {
+    const ht = document.getElementById('meteo-temp-hero');
+    if (ht) ht.textContent = 'N/D';
+  }
+}
+caricaMeteo();
+
+// ═══ WEBCAM — due sorgenti con tab ═══
+const webcamSorgenti: Record<string, { url: string; label: string }> = {
+  piazza: {
+    url: 'http://www.cmelettroimpianti.it/webcam/civago000M.jpg',
+    label: '📷 Piazza di Civago',
+  },
+  dolo: {
+    url: 'https://www.reggioemiliameteo.it/webcam/civago/civago.jpg',
+    label: '🌊 Ponte del Dolo',
+  },
+};
+let webcamAttiva = 'piazza';
+
+function selezionaWebcam(id: string) {
+  webcamAttiva = id;
+  const sorgente = webcamSorgenti[id];
+  const img = document.getElementById('webcam-img') as HTMLImageElement;
+  const label = document.getElementById('webcam-label');
+  if (img) img.src = `${sorgente.url}?t=${Date.now()}`;
+  if (label) label.textContent = sorgente.label;
+
+  // Aggiorna stile tab
+  document.querySelectorAll('.webcam-tab').forEach(btn => {
+    const b = btn as HTMLElement;
+    const isActive = b.id === `tab-${id}`;
+    b.style.background = isActive ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)';
+    b.style.color = isActive ? 'white' : 'rgba(255,255,255,0.6)';
+  });
+}
+// Esponi globalmente per onclick inline
+(window as any).selezionaWebcam = selezionaWebcam;
+
+function aggiornaWebcam() {
+  const sorgente = webcamSorgenti[webcamAttiva];
+  const img = document.getElementById('webcam-img') as HTMLImageElement;
+  if (img) img.src = `${sorgente.url}?t=${Date.now()}`;
+}
+setInterval(aggiornaWebcam, 60000);
+document.getElementById('btn-aggiorna')?.addEventListener('click', aggiornaWebcam);
+</script>

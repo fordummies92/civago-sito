@@ -1,0 +1,293 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const poesie = [
+  {
+    titolo: "Civago",
+    autore: "Ralfo Monti",
+    lingua: "italiano",
+    categoria: "paese",
+    testo: `D'inverno il mio paese riesce a stento
+fra l'alta neve a fare capolino;
+sembra un abbandonato monumento
+precipitato giù per il Ravino.
+
+D'estate, quando spira un po' di vento
+somiglia invece a un vispo ragazzino
+che non riesce a star fermo un sol momento
+e gioca in mezzo al verde a nascondino.
+
+E' quieto, è gaio, è come lo si vuole
+coi suoi prati nell'ombra e il lieve lieve
+frusciar del fiume tra maestose gole.
+
+Coi sogni d'una strada, la sua neve
+e le cime svettanti in mezzo al sole
+e un' acqua che rivive chi ne beve.`,
+  },
+  {
+    titolo: "L'Abetina di Civago",
+    autore: "Ralfo Monti",
+    lingua: "italiano",
+    categoria: "natura",
+    testo: `Sentieri profumati d'ombra e resina
+scroscio di fiume che precipita
+pastello verde
+con tinte vive al sole
+è l'Abetina.
+
+Qualche macchia di sangue sulla neve,
+lucide lagrime di stelle
+cristallizzate
+un silenzio che mormora
+è l'Abetina.
+
+Rara perla nel cuore di un poeta
+che l'accarezza di sospiri,
+lembo di sogni
+e sogno di una strada
+è l'Abetina.`,
+  },
+  {
+    titolo: "Invito a Civago",
+    autore: "Ralfo Monti",
+    lingua: "italiano",
+    categoria: "paese",
+    testo: `Lasciate il solleone o villeggianti
+e l'afa che vi opprime negli uffici
+e venite a Civago tutti quanti
+dove trascorrerete ore felici.
+Le ombre nostre che ammiccano agli amanti
+le osterie che rallegrano gli amici,
+il fiume che promette buona pesca
+vi aspettano vestiti d'aria fresca.
+
+Volendo un'iniezione di morale
+che vi tolga dal cuore ogni amarezza
+venite all'acqua che non sa di sale
+ed è leggera come una carezza.
+Qui non berrete l'acqua minerale
+che tanto fa parlar di Cervarezza
+ma quella imbottigliata da poche ore
+alla magica fonte dell'amore.
+
+[…segue con descrizione del Parco dei Principi al Canino,
+La Penna, il torrente, i castagneti e i faggi della zona]`,
+  },
+  {
+    titolo: "La torre",
+    autore: "Ralfo Monti",
+    lingua: "italiano",
+    categoria: "storia",
+    nota: "Durban, 27 luglio 1951",
+    testo: `La torre ch'era un tempo una regina
+severa, inaccessibile, distinta
+pur vivendo fra l'armi e la rapina,
+adesso è vecchia, scarmigliata e vinta.
+
+Ma il grande orgoglio in simile rovina
+non è sepolto e pallida e discinta
+ma fiera quale astuta contadina
+si può ancora vantar d'essere incinta.
+
+E chi a salir vicino viene attratto
+al rudere che spicca sopra il vuoto
+ne vede il ventre dilatato e sfatto.
+
+Richiesto inoltre un professor ben noto
+a ridursi così come abbia fatto
+rispose: "L'ha fottuta il terremoto".`,
+  },
+  {
+    titolo: "Torre dell'Amorotto",
+    autore: "Umberto Monti",
+    lingua: "italiano",
+    categoria: "storia",
+    testo: `Torre che hai visto secoli di ferro
+e scompigli di sangue e di paura
+sul pinnacolo che ti dié natura
+fosti rifugio al ladro e allo sgherro
+
+Dalla tua roccia non camoscio o verro
+scrutavi, non colomba mal sicura,
+ma l'inerme viandante; e le tue mura
+eran tomba per l'uomo, s'io non erro!
+
+Passano gli uomini e gli anni e tu resisti
+pur contro il vento ch'urla tra l'aride forre,
+e nell'orror bellezza acquisti.
+
+Né verdura, né cani ti soccorre
+né nidi sopra i tuoi ruderi tristi,
+stai sopra il Dolo, abbandonata torre!`,
+  },
+  {
+    titolo: "E me' paies",
+    autore: "Graziano Gigli",
+    lingua: "dialetto",
+    categoria: "paese",
+    traduzione: "Il mio paese",
+    testo: `I munch i han fatt un gran bel cerch rutund
+a e mè paies, par me sentru d'e mund…
+
+[I monti han fatto un gran bel cerchio tondo
+al mio paese, per me centro del mondo.
+La poesia descrive la bellezza naturale nelle stagioni,
+l'attaccamento emotivo al luogo e il desiderio di tornarvi
+regolarmente nonostante la distanza.]`,
+  },
+  {
+    titolo: "At veù arcurdar acscì",
+    autore: "Antonietta Romiti",
+    lingua: "dialetto",
+    categoria: "memoria",
+    traduzione: "Voglio ricordarti così",
+    testo: `[Dedicata alla madre]
+
+Racconta i ricordi d'infanzia quando cercava viole per la mamma in primavera.
+"lo sguardo arrivava dritto in fondo al cuore"
+e conclude con la speranza che "l'amor materno vivrà sempre, in eterno."`,
+  },
+  {
+    titolo: "Quand an gh'era la tivù",
+    autore: "Antonietta Romiti",
+    lingua: "dialetto",
+    categoria: "memoria",
+    traduzione: "Quando non c'era la televisione",
+    testo: `[Celebra le serate invernali quando la madre inventava favole per i figli.]
+
+"Sui pilastri di un'infanzia si costruisce una vita."
+
+La poesia ricorda le veglie attorno al fuoco, le storie inventate,
+il calore di una famiglia povera ma unita nelle lunghe notti appenniniche.`,
+  },
+  {
+    titolo: "La partenza del boscaiolo",
+    autore: "Giovanni Pascoli",
+    lingua: "italiano",
+    categoria: "storia",
+    nota: "Da 'Myricae' — Pascoli conosceva bene questi luoghi",
+    testo: `La scure prendi su, Lombardo,
+da Fiumalbo e Frassinoro!
+Il vento ha già spiumato il cardo,
+fruga la tua barba d'oro.
+Lombardo, prendi su la scure,
+da Civago e da Carù:
+è tempo di passar l'alture:
+tient'a su! tient'a su! tient'a su!
+
+[Continua con 9 ulteriori strofe.
+Nota del prof. Antonio Cattalini: possibile variante
+nel testo originale riguardo alla denominazione geografica.]`,
+  },
+];
+
+const categorie = ["tutti", "paese", "natura", "storia", "memoria"];
+---
+
+<Layout title="Poesie" description="Le poesie di Civago: Ralfo Monti, Antonietta Romiti, Graziano Gigli, Giovanni Pascoli e altri.">
+
+  <div style="background: linear-gradient(135deg, #2D5016, #4A7C59)" class="py-16 px-4 text-white">
+    <div class="max-w-6xl mx-auto">
+      <a href="/cultura" class="text-white/60 text-sm hover:text-white mb-3 block">← Cultura & Tradizioni</a>
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">✍️ Poesia</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Poesie</h1>
+      <p class="text-white/75 text-lg max-w-xl">
+        Le voci dell'Appennino emiliano: da Ralfo Monti a Giovanni Pascoli,
+        dall'italiano al dialetto civaghino.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- Filtri -->
+    <div class="flex flex-wrap gap-2 mb-10" id="filtri-poesie">
+      {categorie.map(c => (
+        <button
+          class="filtro-poesia px-4 py-2 rounded-full text-sm font-medium transition-all capitalize"
+          data-cat={c}
+        >
+          {c === "tutti" ? "Tutte" : c}
+        </button>
+      ))}
+    </div>
+
+    <!-- Poesie -->
+    <div class="space-y-10" id="lista-poesie">
+      {poesie.map(p => (
+        <article
+          class="card p-8 poesia-card"
+          data-cat={p.categoria}
+        >
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-2xl font-bold" style="color:var(--verde-bosco)">{p.titolo}</h2>
+              {p.traduzione && (
+                <div class="text-sm text-stone-400 italic mt-0.5">"{p.traduzione}"</div>
+              )}
+            </div>
+            <div class="flex flex-col items-end gap-1">
+              <div class="badge">{p.autore}</div>
+              <div class="badge" style="background:var(--beige-scuro)">{p.lingua === "dialetto" ? "🗣️ Dialetto" : "🇮🇹 Italiano"}</div>
+            </div>
+          </div>
+          {p.nota && <div class="text-xs text-stone-400 italic mb-4">{p.nota}</div>}
+          <div class="poesia text-base border-l-4 pl-6 py-1" style="border-color:var(--verde-chiaro)">
+            {p.testo}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Ralfo Monti: link alle altre 88 -->
+    <div class="card p-8 mt-10 text-center" style="background:var(--beige-scuro)">
+      <div class="text-4xl mb-3">📚</div>
+      <h3 class="font-bold text-xl mb-2" style="color:var(--verde-bosco)">La raccolta "Alte voci" di Ralfo Monti</h3>
+      <p class="text-stone-600 mb-4 max-w-lg mx-auto text-sm leading-relaxed">
+        Una "Spoon River" dell'Appennino emiliano: oltre 93 poesie che ritraggono personaggi,
+        paesaggi e vita quotidiana di Civago nel '900.
+        Le poesie complete sono disponibili nell'archivio del sito originale.
+      </p>
+      <a href="https://www.civago.it/poesie-di-ralfo-monti.html" target="_blank" class="btn-outline text-sm">
+        Leggi tutte su civago.it →
+      </a>
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+.filtro-poesia {
+  background: white;
+  border: 1.5px solid var(--beige-scuro);
+  color: var(--testo-muted);
+  text-transform: capitalize;
+}
+.filtro-poesia.active {
+  background: var(--verde-bosco);
+  border-color: var(--verde-bosco);
+  color: white;
+}
+.filtro-poesia:hover:not(.active) {
+  border-color: var(--verde-bosco);
+  color: var(--verde-bosco);
+}
+.poesia-card.nascosta { display: none; }
+</style>
+
+<script>
+document.querySelector('[data-cat="tutti"]')?.classList.add('active');
+document.querySelectorAll('.filtro-poesia').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filtro-poesia').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = (btn as HTMLElement).dataset.cat;
+    document.querySelectorAll('.poesia-card').forEach(card => {
+      const c = (card as HTMLElement).dataset.cat;
+      if (cat === 'tutti' || c === cat) card.classList.remove('nascosta');
+      else card.classList.add('nascosta');
+    });
+  });
+});
+</script>

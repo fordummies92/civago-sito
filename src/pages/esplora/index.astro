@@ -1,0 +1,240 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const sentieri = [
+  { id: 1, nome: "Dalla piazza al lavatoio", km: "0.8", dislivello: "+30m", difficolta: "Facile", tempo: "20 min", desc: "Un breve percorso dal centro del paese fino all'antico lavatoio, passando per i vicoli storici.", lat: 44.274, lng: 10.407 },
+  { id: 2, nome: "Dal lavatoio al mulino", km: "1.2", dislivello: "+60m", difficolta: "Facile", tempo: "30 min", desc: "Lungo il corso del Dolo fino al vecchio mulino ad acqua, tra ontani e salici.", lat: 44.272, lng: 10.411 },
+  { id: 3, nome: "Dal mulino alle Lame Piane", km: "2.1", dislivello: "+120m", difficolta: "Facile", tempo: "55 min", desc: "Attraverso i castagneti terrazzati fino alle ampie radure delle Lame Piane.", lat: 44.270, lng: 10.415 },
+  { id: 4, nome: "Lame Piane → Casa dell'Abate", km: "1.8", dislivello: "+90m", difficolta: "Medio", tempo: "50 min", desc: "Tra muri a secco e maestà del '700, fino all'antica casa dell'abate.", lat: 44.268, lng: 10.419 },
+  { id: 5, nome: "Casa dell'Abate → La Romita", km: "1.5", dislivello: "+80m", difficolta: "Medio", tempo: "45 min", desc: "Verso il romitaggio, con vista panoramica sulla valle del Dolo.", lat: 44.266, lng: 10.423 },
+  { id: 6, nome: "La Romita → Case di Civago", km: "1.3", dislivello: "-60m", difficolta: "Facile", tempo: "35 min", desc: "Discesa attraverso i borghi sparsi delle Case di Civago.", lat: 44.264, lng: 10.417 },
+  { id: 7, nome: "Case di Civago → Case Giammarco", km: "1.6", dislivello: "+40m", difficolta: "Facile", tempo: "40 min", desc: "Sentiero pianeggiante tra borghi, con bellissime vedute sulle cime.", lat: 44.262, lng: 10.413 },
+  { id: 8, nome: "Case Giammarco → La Costetta", km: "1.9", dislivello: "+110m", difficolta: "Medio", tempo: "55 min", desc: "Salita alla cresta della Costetta, punto panoramico eccezionale.", lat: 44.260, lng: 10.408 },
+  { id: 9, nome: "La Costetta → Le Calcinare", km: "2.2", dislivello: "+80m", difficolta: "Medio", tempo: "60 min", desc: "Verso le antiche calcare dove si produceva calce con i sassi del bosco.", lat: 44.258, lng: 10.402 },
+  { id: 10, nome: "Le Calcinare → Gazzano", km: "3.1", dislivello: "-200m", difficolta: "Medio", tempo: "80 min", desc: "Lungo discesa verso Gazzano attraverso boschi di faggio e abete.", lat: 44.254, lng: 10.395 },
+  { id: 11, nome: "Via della Garfagnana", km: "4.5", dislivello: "+350m", difficolta: "Impegnativo", tempo: "2.5 h", desc: "Il percorso storico verso la Toscana. Mulattiera medievale usata da mercanti e pellegrini.", lat: 44.250, lng: 10.390 },
+  { id: 12, nome: "Via Maremmana — tratto Civago", km: "5.0", dislivello: "+420m", difficolta: "Impegnativo", tempo: "3 h", desc: "Parte dell'antico collegamento con la Maremma, su tracce CAI ufficiali.", lat: 44.248, lng: 10.385 },
+  { id: 13, nome: "Torre dell'Amorotto → Gazzano", km: "3.8", dislivello: "+160m", difficolta: "Medio", tempo: "1.5 h", desc: "Il percorso più storico: dalla torre cilindrica sul Dolo fino a Gazzano.", lat: 44.256, lng: 10.400 },
+];
+
+const coloriDiff: Record<string, string> = {
+  "Facile": "#4A7C59",
+  "Medio": "#8B6914",
+  "Impegnativo": "#B03A2E",
+};
+
+const coloriDiffBg: Record<string, string> = {
+  "Facile": "#d1fae5",
+  "Medio": "#fef3c7",
+  "Impegnativo": "#fee2e2",
+};
+
+const puntiInteresse = [
+  { nome: "Torre dell'Amorotto", lat: 44.260, lng: 10.398, tipo: "storico", desc: "Torre cilindrica medievale sul Dolo, XIII sec." },
+  { nome: "Ospizio di San Leonardo", lat: 44.268, lng: 10.415, tipo: "storico", desc: "Ospizio del XII sec. per pellegrini, ricostruito nel 2004" },
+  { nome: "Rifugio San Leonardo", lat: 44.280, lng: 10.430, tipo: "rifugio", desc: "40 min da Civago, 1.400 m s.l.m." },
+  { nome: "Rifugio Battisti", lat: 44.245, lng: 10.375, tipo: "rifugio", desc: "Il principale rifugio CAI dell'Appennino reggiano" },
+  { nome: "Abetina Reale", lat: 44.252, lng: 10.388, tipo: "natura", desc: "Foresta di abeti rossi, la più estesa dell'Appennino emiliano" },
+];
+---
+
+<Layout title="Esplora — Sentieri e Mappa" description="13 sentieri tra le borgate di Civago: mappa interattiva, tracce GPX e descrizioni dettagliate.">
+
+  <!-- Header pagina -->
+  <div style="background:var(--verde-bosco)" class="py-16 px-4 text-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">🥾 Escursionismo</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Esplora Civago</h1>
+      <p class="text-white/75 text-lg max-w-xl">
+        13 itinerari a piedi tra borgate, castagneti e panorami sull'Alto Appennino.
+        Sentieri per tutte le difficoltà, da passeggiata a trekking.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-12">
+
+    <!-- ═══ MAPPA INTERATTIVA ═══ -->
+    <div class="mb-12">
+      <h2 class="section-title mb-1">🗺️ Mappa dei sentieri</h2>
+      <p class="section-subtitle mb-4">Clicca sui marker per dettagli su sentieri e punti di interesse</p>
+
+      <div class="card overflow-hidden">
+        <div id="mappa-civago" style="height: 480px; width: 100%;"></div>
+        <div class="p-4 bg-white flex flex-wrap gap-4 text-sm border-t border-stone-100">
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-green-600 inline-block"></span>Sentiero facile</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-yellow-600 inline-block"></span>Sentiero medio</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-red-600 inline-block"></span>Sentiero impegnativo</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span>Rifugio</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-stone-600 inline-block"></span>Punto storico</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>Natura</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ RICERCA SENTIERI ═══ -->
+    <div class="mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+      <h2 class="section-title mb-0">I 13 sentieri</h2>
+      <div class="flex gap-2 flex-wrap">
+        <button class="filtro-btn active px-4 py-2 rounded-full text-sm font-medium transition-all" data-filtro="tutti">Tutti</button>
+        <button class="filtro-btn px-4 py-2 rounded-full text-sm font-medium transition-all" data-filtro="Facile">🟢 Facile</button>
+        <button class="filtro-btn px-4 py-2 rounded-full text-sm font-medium transition-all" data-filtro="Medio">🟡 Medio</button>
+        <button class="filtro-btn px-4 py-2 rounded-full text-sm font-medium transition-all" data-filtro="Impegnativo">🔴 Impegnativo</button>
+      </div>
+    </div>
+
+    <!-- Lista sentieri -->
+    <div id="lista-sentieri" class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-16">
+      {sentieri.map(s => (
+        <div
+          class="card p-5 sentiero-card"
+          data-difficolta={s.difficolta}
+          data-lat={s.lat}
+          data-lng={s.lng}
+        >
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <h3 class="font-bold text-base leading-snug" style="color:var(--verde-bosco)">{s.id}. {s.nome}</h3>
+            <span
+              class="badge flex-shrink-0 text-xs px-2 py-1"
+              style={`background:${coloriDiffBg[s.difficolta]};color:${coloriDiff[s.difficolta]}`}
+            >
+              {s.difficolta}
+            </span>
+          </div>
+          <p class="text-sm text-stone-500 mb-3 leading-relaxed">{s.desc}</p>
+          <div class="flex gap-4 text-xs text-stone-400 font-medium">
+            <span>📍 {s.km} km</span>
+            <span>⬆️ {s.dislivello}</span>
+            <span>⏱️ {s.tempo}</span>
+          </div>
+          <button
+            class="mt-3 text-xs font-semibold centramappa-btn"
+            style="color:var(--verde-salvia)"
+            data-lat={s.lat}
+            data-lng={s.lng}
+            data-nome={s.nome}
+          >
+            📍 Mostra sulla mappa
+          </button>
+        </div>
+      ))}
+    </div>
+
+    <!-- ═══ INFO PRATICHE ═══ -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <div class="card p-6">
+        <h3 class="font-bold text-lg mb-3" style="color:var(--verde-bosco)">⛰️ Rifugi</h3>
+        <ul class="text-sm text-stone-600 space-y-2">
+          <li><strong>Rifugio San Leonardo</strong> — 40 min da Civago, 1.400 m</li>
+          <li><strong>Rifugio Segheria</strong> — Abetina Reale, strada forestale</li>
+          <li><strong>Rifugio Battisti</strong> — principale CAI dell'Appennino</li>
+        </ul>
+      </div>
+      <div class="card p-6">
+        <h3 class="font-bold text-lg mb-3" style="color:var(--verde-bosco)">🎎 Area pesca</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Lungo il Torrente Dolo è presente un'<strong>area di pesca regolamentata</strong> con trote.
+          Informazioni e permessi: <a href="http://www.torrentedolo.it" target="_blank" class="underline" style="color:var(--verde-salvia)">torrentedolo.it</a>
+        </p>
+      </div>
+      <div class="card p-6">
+        <h3 class="font-bold text-lg mb-3" style="color:var(--verde-bosco)">🌲 Abetina Reale</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          La foresta di abeti rossi più estesa dell'Appennino emiliano, protetta dal Parco Nazionale Appennino Tosco-Emiliano.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+.filtro-btn {
+  background: white;
+  border: 1.5px solid var(--beige-scuro);
+  color: var(--testo-muted);
+}
+.filtro-btn.active {
+  background: var(--verde-bosco);
+  border-color: var(--verde-bosco);
+  color: white;
+}
+.filtro-btn:hover:not(.active) {
+  border-color: var(--verde-salvia);
+  color: var(--verde-bosco);
+}
+.sentiero-card.nascosto { display: none; }
+</style>
+
+<script define:vars={{ sentieri, puntiInteresse }}>
+const coloriMarker = {
+  'Facile': '#16a34a',
+  'Medio': '#d97706',
+  'Impegnativo': '#dc2626',
+  'rifugio': '#3b82f6',
+  'storico': '#57534e',
+  'natura': '#10b981',
+};
+
+function initMappa() {
+  if (typeof L === 'undefined') { setTimeout(initMappa, 200); return; }
+
+  const mappa = L.map('mappa-civago').setView([44.265, 10.405], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 18,
+  }).addTo(mappa);
+
+  function makeIcon(color) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="width:14px;height:14px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.35)"></div>`,
+      iconSize: [14, 14],
+      iconAnchor: [7, 7],
+    });
+  }
+
+  sentieri.forEach(s => {
+    const color = coloriMarker[s.difficolta] || '#555';
+    L.marker([s.lat, s.lng], { icon: makeIcon(color) })
+      .addTo(mappa)
+      .bindPopup(`<b>${s.id}. ${s.nome}</b><br><em>${s.difficolta}</em> · ${s.km} km · ${s.tempo}<br><small>${s.desc}</small>`);
+  });
+
+  puntiInteresse.forEach(p => {
+    const color = coloriMarker[p.tipo] || '#555';
+    L.marker([p.lat, p.lng], { icon: makeIcon(color) })
+      .addTo(mappa)
+      .bindPopup(`<b>📍 ${p.nome}</b><br><small>${p.desc}</small>`);
+  });
+
+  document.querySelectorAll('.centramappa-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lat = parseFloat(btn.dataset.lat || '0');
+      const lng = parseFloat(btn.dataset.lng || '0');
+      mappa.flyTo([lat, lng], 15, { duration: 1 });
+      const mapEl = document.getElementById('mappa-civago');
+      if (mapEl) window.scrollTo({ top: mapEl.offsetTop - 80, behavior: 'smooth' });
+    });
+  });
+
+  document.querySelectorAll('.filtro-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filtro = btn.dataset.filtro;
+      document.querySelectorAll('.sentiero-card').forEach(card => {
+        const diff = card.dataset.difficolta;
+        if (filtro === 'tutti' || diff === filtro) {
+          card.classList.remove('nascosto');
+        } else {
+          card.classList.add('nascosto');
+        }
+      });
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initMappa);
+</script>

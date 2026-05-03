@@ -1,0 +1,220 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const eventi = [
+  { mese: "Luglio", giorno: "1–31", anno: "2025", titolo: "Estate a Civago", tipo: "estate", desc: "Escursioni guidate, serate in piazza, concerti e degustazioni. Il programma completo verrà aggiornato a giugno.", icona: "☀️" },
+  { mese: "Agosto", giorno: "15", anno: "2025", titolo: "Ferragosto in piazza", tipo: "festa", desc: "Cena comunitaria e musica in piazza. Portate qualcosa da mangiare per tutti!", icona: "🎉" },
+  { mese: "Settembre", giorno: "28", anno: "2025", titolo: "Festa del Fungo 2025", tipo: "sagra", desc: "La tradizionale sagra del fungo porcino dell'Alto Appennino. Degustazioni, stand gastronomici e musica.", icona: "🍄" },
+  { mese: "Ottobre", giorno: "12", anno: "2025", titolo: "Castagnata 2025", tipo: "sagra", desc: "Caldarroste e vin brulé in piazza con tutta la comunità. Tradizione che si ripete ogni anno.", icona: "🌰" },
+  { mese: "Dicembre", giorno: "6", anno: "2025", titolo: "Befana e Biscotti Befanini", tipo: "tradizione", desc: "I bambini aspettano la Befana per il tradizionale giro del paese con i biscotti befanini.", icona: "🧹" },
+  { mese: "Febbraio", giorno: "", anno: "2026", titolo: "Carnevale di Civago", tipo: "tradizione", desc: "Maschere, fritell e il tradizionale giro delle case con gli auguri. Come vuole la tradizione dell'Appennino.", icona: "🎭" },
+  { mese: "Marzo", giorno: "", anno: "2026", titolo: "Sci alpino — finali", tipo: "sport", desc: "Le finali del campionato provinciale sulle piste di Civago. Segui i risultati del locale sci club.", icona: "⛷️" },
+  { mese: "Maggio", giorno: "", anno: "2026", titolo: "Il Maggio Cantato", tipo: "cultura", desc: "La tradizione teatrale dell'Appennino: spettacolo di teatro popolare a ciclo annuale.", icona: "🎭" },
+];
+
+const notizie = [
+  {
+    data: "30 Settembre 2023",
+    titolo: "Festa del Fungo 2023",
+    testo: "Grande successo per la Festa del Fungo 2023. Centinaia di visitatori hanno partecipato alle degustazioni e agli stand gastronomici. Appuntamento all'anno prossimo!",
+    tipo: "sagra",
+  },
+  {
+    data: "14 Ottobre 2017",
+    titolo: "Castagnata 2017",
+    testo: "La castagnata 2017 ha riunito come ogni anno tutta la comunità. Caldarroste, vin brulé e buona musica per una serata da ricordare.",
+    tipo: "sagra",
+  },
+  {
+    data: "14 Luglio 2017",
+    titolo: "Programma Estate 2017",
+    testo: "Pubblicato il programma degli eventi estivi 2017. Escursioni guidate, serate musicali, degustazioni e molto altro. Un'estate ricca di appuntamenti.",
+    tipo: "estate",
+  },
+  {
+    data: "17 Ottobre 2016",
+    titolo: "Castagnata 2016",
+    testo: "Anche quest'anno la castagnata ha radunato la comunità per festeggiare l'autunno sull'Appennino.",
+    tipo: "sagra",
+  },
+  {
+    data: "25 Aprile 2016",
+    titolo: "Nevicata di fine aprile",
+    testo: "Una tardiva nevicata ha ricoperto Civago il 25 aprile. Paesaggio spettacolare e strade percorribili con cautela.",
+    tipo: "meteo",
+  },
+  {
+    data: "2016",
+    titolo: "Inaugurato il defibrillatore",
+    testo: "Installato e inaugurato il defibrillatore automatico in piazza. Un presidio di sicurezza importante per tutta la comunità.",
+    tipo: "comunita",
+  },
+];
+
+const tipoColori: Record<string, string> = {
+  sagra: "#8B6914",
+  estate: "#2D5016",
+  tradizione: "#4A7C59",
+  sport: "#1D6FA4",
+  cultura: "#6B3FA6",
+  festa: "#B03A2E",
+  comunita: "#555",
+  meteo: "#4A7C59",
+};
+---
+
+<Layout title="Comunità — News & Calendario" description="News ed eventi di Civago: sagre, tradizioni, sport e vita della comunità.">
+
+  <div style="background: linear-gradient(135deg, #1a3a0a, #2D5016)" class="py-16 px-4 text-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">📢 Comunità</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Comunità</h1>
+      <p class="text-white/75 text-lg max-w-xl">
+        News, eventi e vita del paese. Tutto quello che succede a Civago.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-12">
+
+    <!-- ═══ CALENDARIO EVENTI ═══ -->
+    <section id="calendario" class="mb-16 scroll-mt-24">
+      <h2 class="section-title mb-1">📅 Calendario eventi 2025–2026</h2>
+      <p class="section-subtitle">Le date da segnare sul calendario</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {eventi.map(e => (
+          <div class="card p-5 flex gap-4">
+            <!-- Data box -->
+            <div class="flex-shrink-0 w-16 text-center">
+              <div class="font-bold text-2xl" style={`color:${tipoColori[e.tipo] ?? '#555'}`}>{e.giorno || "—"}</div>
+              <div class="text-xs text-stone-400 font-medium uppercase tracking-wider">{e.mese}</div>
+              <div class="text-xs text-stone-300">{e.anno}</div>
+            </div>
+            <!-- Contenuto -->
+            <div class="flex-1 border-l border-stone-100 pl-4">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xl">{e.icona}</span>
+                <h3 class="font-bold text-base" style={`color:${tipoColori[e.tipo] ?? '#555'}`}>{e.titolo}</h3>
+              </div>
+              <p class="text-sm text-stone-500 leading-relaxed">{e.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-6 p-5 rounded-2xl text-sm" style="background:var(--beige-scuro)">
+        <p class="text-stone-600">
+          📬 <strong>Vuoi segnalare un evento?</strong>
+          Scrivi a <a href="mailto:info@civago.it" style="color:var(--verde-salvia)" class="font-medium underline">info@civago.it</a>
+          e lo aggiungiamo al calendario.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ NEWS ═══ -->
+    <section id="news" class="scroll-mt-24">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="section-title mb-1">📰 News e aggiornamenti</h2>
+          <p class="section-subtitle mb-0">Le ultime notizie da Civago</p>
+        </div>
+      </div>
+
+      <!-- Filtro news -->
+      <div class="flex flex-wrap gap-2 mb-6">
+        <button class="filtro-news active px-3 py-1.5 rounded-full text-sm font-medium" data-tipo="tutti">Tutte</button>
+        <button class="filtro-news px-3 py-1.5 rounded-full text-sm font-medium" data-tipo="sagra">🍄 Sagre</button>
+        <button class="filtro-news px-3 py-1.5 rounded-full text-sm font-medium" data-tipo="estate">☀️ Estate</button>
+        <button class="filtro-news px-3 py-1.5 rounded-full text-sm font-medium" data-tipo="comunita">🏘️ Comunità</button>
+      </div>
+
+      <div id="lista-news" class="space-y-5">
+        {notizie.map(n => (
+          <article class="card p-6 news-item" data-tipo={n.tipo}>
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div
+                  class="w-2 h-2 rounded-full mt-2"
+                  style={`background:${tipoColori[n.tipo] ?? '#aaa'}`}
+                />
+              </div>
+              <div class="flex-1">
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <span
+                    class="badge text-xs"
+                    style={`background:${tipoColori[n.tipo]}22;color:${tipoColori[n.tipo]}`}
+                  >
+                    {n.tipo}
+                  </span>
+                  <time class="text-xs text-stone-400">{n.data}</time>
+                </div>
+                <h3 class="font-bold text-lg mb-2" style="color:var(--verde-bosco)">{n.titolo}</h3>
+                <p class="text-sm text-stone-600 leading-relaxed">{n.testo}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-8 text-center text-sm text-stone-400">
+        <p>Il sistema news completo con tutti gli articoli storici è in fase di migrazione.</p>
+        <a href="https://www.civago.it/news.html" target="_blank" style="color:var(--verde-salvia)" class="underline">
+          Vedi archivio completo su civago.it →
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══ CONTATTI ═══ -->
+    <section class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card p-6">
+        <h3 class="font-bold text-xl mb-3" style="color:var(--verde-bosco)">📬 Contatti</h3>
+        <div class="space-y-2 text-sm text-stone-600">
+          <p>📧 <a href="mailto:info@civago.it" class="underline" style="color:var(--verde-salvia)">info@civago.it</a></p>
+          <p>🌐 <a href="https://www.civago.it" target="_blank" class="underline" style="color:var(--verde-salvia)">www.civago.it</a></p>
+          <p>🏔️ Civago, Comune di Villaminozzo (RE)</p>
+        </div>
+      </div>
+      <div class="card p-6">
+        <h3 class="font-bold text-xl mb-3" style="color:var(--verde-bosco)">📸 Le tue foto</h3>
+        <p class="text-sm text-stone-600 mb-4 leading-relaxed">
+          Hai foto di Civago che vuoi condividere con la comunità?
+          Mandacele via email e le aggiungiamo all'archivio fotografico!
+        </p>
+        <a href="mailto:info@civago.it?subject=Le mie foto di Civago" class="btn-primary text-sm">
+          Invia le tue foto →
+        </a>
+      </div>
+    </section>
+
+  </div>
+</Layout>
+
+<style>
+.filtro-news {
+  background: white;
+  border: 1.5px solid var(--beige-scuro);
+  color: var(--testo-muted);
+}
+.filtro-news.active {
+  background: var(--verde-bosco);
+  border-color: var(--verde-bosco);
+  color: white;
+}
+.news-item.nascosta { display: none; }
+</style>
+
+<script>
+document.querySelectorAll('.filtro-news').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filtro-news').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const tipo = (btn as HTMLElement).dataset.tipo;
+    document.querySelectorAll('.news-item').forEach(item => {
+      const t = (item as HTMLElement).dataset.tipo;
+      if (tipo === 'tutti' || t === tipo) item.classList.remove('nascosta');
+      else item.classList.add('nascosta');
+    });
+  });
+});
+</script>

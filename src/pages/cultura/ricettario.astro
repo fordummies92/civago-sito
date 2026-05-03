@@ -1,0 +1,348 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const ricette = [
+  {
+    slug: "bazzina",
+    nome: "Bazzina o Manufatt",
+    categoria: "primo",
+    emoji: "🫕",
+    desc: "Minestrone ricco con farina di granturco. Il piatto invernale per eccellenza, versione morbida della polenta.",
+    ingredienti: ["Verdure per minestrone (patate, carote, verza, fagioli, cavolo nero)", "Osso di prosciutto o pezzo di maiale", "800 g farina di granturco macinata fine", "Burro", "2 manciate di formaggio grattugiato"],
+    procedimento: "Preparare un minestrone ricco con tutti i tipi di verdure, compresi i fagioli, tagliati a pezzi grossi.\nUna volta cotto il brodo, versare lentamente la farina evitando grumi. La consistenza deve risultare più morbida della polenta.\nFar bollire 20 minuti, togliere dal fuoco, aggiungere burro e formaggio e servire.\n\nVariante: Lasciare raffreddare, tagliare a fette da ~3 cm e friggere nell'olio.",
+    dosi: "20 persone",
+  },
+  {
+    slug: "biscotti-befanini",
+    nome: "Biscotti Befanini",
+    categoria: "dolce",
+    emoji: "🍪",
+    desc: "Dolcetti tradizionali distribuiti dalla Befana ai bambini durante il giro per il paese.",
+    ingredienti: ["500 g farina", "200 g zucchero", "2 uova", "150 g burro", "Lievito", "Scorza di limone grattugiata", "Latte q.b.", "Zuccherini colorati", "Sassolino"],
+    procedimento: "Mescolare farina, zucchero, uova, burro fuso, lievito e sale per creare l'impasto base. Se necessario aggiungere latte.\nStendere a 1–1,5 cm di spessore e ritagliare i biscotti.\nCospargere di zuccherini colorati prima della cottura.\nInfornare, estrarre e irrorare con Sassolino.",
+    dosi: "30+ biscotti",
+  },
+  {
+    slug: "burg",
+    nome: "Burg",
+    categoria: "altro",
+    emoji: "🌰",
+    desc: "La merenda più semplice dei bambini di Civago: castagne e latte. Ingredienti, zero procedimento.",
+    ingredienti: ["Castagne sbucciate", "Latte freddo"],
+    procedimento: "Lessare le castagne, togliere la buccia, metterle in una tazza coprendo con latte freddo.",
+    dosi: "a piacere",
+  },
+  {
+    slug: "cena-mata",
+    nome: "Cena Mata",
+    categoria: "primo",
+    emoji: "🥣",
+    desc: "La 'cena matta': zuppa di fagioli e patate con grasso di maiale, pane raffermo. Piatto dei giorni di magro.",
+    ingredienti: ["300 g fagioli", "4 grosse patate", "150 g grasso di maiale", "Aglio", "Rosmarino", "Sale, pepe"],
+    procedimento: "Cuocere i fagioli. Lessare le patate tagliate a pezzi piccoli, unire ai fagioli.\nBattere il grasso con sale, pepe, aglio e rosmarino, incorporarlo nella minestra.\nServire con crostini di pane raffermo.",
+    dosi: "4 persone",
+  },
+  {
+    slug: "cherscenta",
+    nome: "Cherscenta",
+    categoria: "pane",
+    emoji: "🫓",
+    desc: "La focaccia dell'Appennino, cotta nel forno a legna. Base della cucina quotidiana.",
+    ingredienti: ["Farina bianca", "Sale", "Olio", "Lievito di birra", "Acqua"],
+    procedimento: "Impastare farina, acqua, lievito e sale. Lasciare lievitare.\nStendere in teglia, bucarellare con le dita, ungere con olio.\nCuocere nel forno a legna.",
+    dosi: "1 teglia",
+  },
+  {
+    slug: "confetti-nozze",
+    nome: "Confetti di Nozze",
+    categoria: "dolce",
+    emoji: "🤍",
+    desc: "Piccole palline di pasta frolla al Sassolino, distribuite agli invitati all'uscita dalla chiesa.",
+    ingredienti: ["50 g farina bianca", "200 g burro", "3 tuorli + 1 uovo intero", "300 g zucchero", "1 bustina lievito", "Vanillina", "1 limone grattugiato", "Sassolino"],
+    procedimento: "Disfare il burro nella farina con il lievito. Aggiungere zucchero a fontana, poi le uova e gli altri ingredienti.\nRiposare 2 ore al fresco.\nFormare palline da ~1 cm, disporre su piastra imburrata.\nCuocere in forno a legna a ~150° fino a doratura.\nIrrorare con Sassolino. Distribuire agli invitati all'uscita dalla chiesa.",
+    dosi: "50+ pezzi",
+  },
+  {
+    slug: "fritell",
+    nome: "Fritell",
+    categoria: "antipasto",
+    emoji: "🟡",
+    desc: "Frittelle salate del Carnevale con formaggio pecorino. Si riconoscono dalla bolla d'aria nel mezzo.",
+    ingredienti: ["1 kg farina", "10 uova", "500 g formaggio pecorino", "Strutto per friggere", "Brodo", "Sale, pepe"],
+    procedimento: "Sbattere le uova con farina, formaggio, sale e pepe aggiungendo brodo fino a consistenza cremosa.\nCoprire con un panno e aspettare 5 ore.\nScaldare lo strutto in padella, friggere usando un cucchiaio unto per formare le frittelle.\nLe frittelle corrette hanno una bolla d'aria nel mezzo.\nServire calde o fredde.",
+    dosi: "25 persone",
+  },
+  {
+    slug: "gnuclin",
+    nome: "Gnuclin d'castegn",
+    categoria: "primo",
+    emoji: "🌰",
+    desc: "Gnocchetti di farina di castagne serviti con latte freddo. Il primo piatto più antico di Civago.",
+    ingredienti: ["75 g farina di castagne per persona", "Acqua tiepida", "Latte freddo", "Sale"],
+    procedimento: "Mescolare farina e acqua tiepida fino a impasto denso.\nPortare a ebollizione acqua poco salata, versare palline di pastella della dimensione di mezzo cucchiaino.\nCuocere ~10 minuti, aggiungere la pastella rimanente diluita con acqua.\nServire nei piatti con latte freddo a piacimento.",
+    dosi: "per persona",
+  },
+  {
+    slug: "manufatt-bianchi",
+    nome: "Manufatt Bianchi",
+    categoria: "primo",
+    emoji: "🍚",
+    desc: "Polenta bianca con riso e patate cotta nel latte. Versione delicata dei manufatt.",
+    ingredienti: ["1 lt latte", "1 lt acqua", "25 g burro", "250 g farina di granturco", "250 g riso", "2 patate", "Sale"],
+    procedimento: "Mescolare latte, acqua e burro. Cuocervi il riso e le patate.\nA metà cottura aggiungere la farina di granoturco e il sale.\nServire caldo.",
+    dosi: "4 persone",
+  },
+  {
+    slug: "necci",
+    nome: "Necci",
+    categoria: "altro",
+    emoji: "🥞",
+    desc: "Crespelle di farina di castagne con ricotta, cotti su pietra. Il dolce-salato dell'Appennino.",
+    ingredienti: ["1 kg farina di castagne", "Ricotta di pecora", "Cotenna di maiale (per ungere)", "Acqua fredda", "Sale"],
+    procedimento: "Amalgamare farina con acqua fredda e poco sale fino a impasto leggermente liquido. Lasciare riposare.\nUngere i testi con la cotenna di maiale.\nVersione di pastella nel mezzo, appiattire e cuocere.\nFarcire con ricotta e arrotolare su sé stesso.",
+    dosi: "20 persone",
+  },
+  {
+    slug: "pane-patate",
+    nome: "Pane di Patate",
+    categoria: "pane",
+    emoji: "🍞",
+    desc: "Il pane tradizionale di Civago con pasta madre (lvadur) e patate lessate. Ricetta per 13 pani.",
+    ingredienti: ["8 kg farina", "2 kg patate lessate", "2 cubetti lievito di birra", "Acqua tiepida", "Lvadur (pasta madre)", "Sale"],
+    procedimento: "La sera prima preparare il lvadur: mescolare ~1 kg di farina con acqua tiepida e un po' di pasta del pane precedente (conservata sotto un panno). Lievitare 3–4 ore.\nImpastare farina, sale e acqua con il lievito. Aggiungere le patate schiacciate, poi il lvadur.\nFormare i pani. Infornare nel forno a legna per ~1 ora.",
+    dosi: "13 pani da 1 kg",
+  },
+  {
+    slug: "parpadell",
+    nome: "Parpadell",
+    categoria: "primo",
+    emoji: "🍜",
+    desc: "Pasta strappata a mano e cotta nel brodo del minestrone. Il primo piatto veloce di una volta.",
+    ingredienti: ["1 kg farina", "8 uova", "Sale"],
+    procedimento: "Impastare farina, uova e sale.\nTirare la sfoglia, stracciare con le mani pezzi irregolari e cuocerli nel brodo del minestrone.\nServire la zuppa.",
+    dosi: "10 persone",
+  },
+  {
+    slug: "putaracch",
+    nome: "Pütaracch",
+    categoria: "condimento",
+    emoji: "🧀",
+    desc: "Salsa di uova e pecorino da versare sulla polenta di castagne. Il 'ragù povero' dell'Appennino.",
+    ingredienti: ["2 uova", "Formaggio pecorino", "Farina di granturco", "Latte", "Sale, pepe"],
+    procedimento: "Sbattere le uova con il pecorino grattugiato, una cucchiaiata di farina, sale e pepe.\nAggiungere latte progressivamente fino a miscela fluida.\nVersare in padella unta e rimestare fino a solidificazione.\nServire a cucchiaiate sopra la polenta di castagne.",
+    dosi: "a piacere",
+  },
+  {
+    slug: "sulada",
+    nome: "Sulada",
+    categoria: "antipasto",
+    emoji: "🥙",
+    desc: "Pasta di farina e pecorino, arrotolata con salume o fritta. Parente dei necci, versione salata.",
+    ingredienti: ["1 kg farina bianca", "300 g formaggio di pecora", "3 uova", "Salume affettato", "Sale, pepe"],
+    procedimento: "Impastare farina, formaggio grattugiato, sale, pepe e uova aggiungendo acqua fino a consistenza cremosa.\nDue varianti:\n1. Arrotolare con il salume (come i necci)\n2. Friggere i pezzi nell'olio e consumare da soli.",
+    dosi: "20 persone",
+  },
+  {
+    slug: "tagliatelle-castagne",
+    nome: "Tagliatelle di Castagne",
+    categoria: "primo",
+    emoji: "🍝",
+    desc: "Pasta fresca con farina di castagne e farina bianca, cotta con latte. Sapore dolce-nocciolato.",
+    ingredienti: ["500 g farina di castagne", "100 g farina bianca", "500 ml latte", "Acqua"],
+    procedimento: "Unire le farine, impastare con acqua fino a sfoglia compatta.\nTagliare le tagliatelle in larghezza intermedia tra spaghetto e tagliatella tradizionale.\nCuocere come i gnuclin, aggiungere il latte durante la cottura.\nServire calde.",
+    dosi: "6 persone",
+  },
+  {
+    slug: "torta-castagne",
+    nome: "Torta di Farina di Castagne",
+    categoria: "dolce",
+    emoji: "🎂",
+    desc: "Torta soffice con farina di castagne. Profuma di autunno e di bosco.",
+    ingredienti: ["300 g farina di castagne", "100 g farina bianca", "3 uova", "1 bicchiere latte", "200 g burro", "1 bustina lievito", "100 g zucchero"],
+    procedimento: "Sciogliere il burro a bagnomaria. Amalgamare con zucchero, farine e uova.\nAggiungere latte per ammorbidire l'impasto. Aggiungere il lievito.\nVersare in teglia unta, infornare a 180° per 40 minuti.",
+    dosi: "8-10 fette",
+  },
+  {
+    slug: "torta-patate",
+    nome: "Torta di Patate",
+    categoria: "secondo",
+    emoji: "🥧",
+    desc: "Torta rustica salata con ripieno di patate e formaggi. La 'torta' tipica dei matrimoni e delle feste.",
+    ingredienti: ["1 kg patate", "Farina q.b.", "80 g pecorino + 80 g grana", "1 bicchiere latte o panna", "Olio, sale, pepe"],
+    procedimento: "Ripieno: Bollire le patate sbucciate, passarle allo schiacciapatate calde. Lasciar intiepidire, aggiungere i formaggi grattugiati, sale, pepe, latte. Mescolare bene.\nPasta: Impastare farina, acqua, sale e poco olio. Stendere sottile (~2 mm). Mettere in teglia unta, distribuire il ripieno, ripiegare i bordi (~1 cm), decorare con i 'Pizz'.\nInfornare fino a doratura.",
+    dosi: "5 persone",
+  },
+  {
+    slug: "torta-riso",
+    nome: "Torta di Riso Salata",
+    categoria: "secondo",
+    emoji: "🍱",
+    desc: "Torta salata di riso e ricotta in pasta sfoglia casalinga. Si prepara la sera prima.",
+    ingredienti: ["Pasta: 1 kg farina, ½ lt latte, 1 bicchiere olio, 1 cubetto lievito", "Ripieno: 1 kg riso, 6 uova, ½ kg ricotta, 200 g pecorino, 200 g parmigiano, sale, pepe"],
+    procedimento: "Cuocere il riso in acqua e latte, lasciare riposare 12 ore.\nStendere la pasta sfoglia in teglia oleata coprendo bene i bordi.\nMescolare il riso con tutti gli altri ingredienti, stendere sulla sfoglia.\nRipiegare ~1 cm di pasta sul ripieno, decorare con i 'Pizz'.\nInfornare.",
+    dosi: "10 persone",
+  },
+  {
+    slug: "vinada",
+    nome: "Vinada",
+    categoria: "dolce",
+    emoji: "🍷",
+    desc: "Farina di castagne sciolta in vino rosso caldo. Il piatto dei boscaioli, la sera d'inverno.",
+    ingredienti: ["500 g farina di castagne", "1 lt vino rosso", "500 ml acqua"],
+    procedimento: "Portare a ebollizione vino e acqua.\nAggiungere la farina di castagne mescolando bene per evitare grumi.\nServire caldo.",
+    dosi: "4 persone",
+  },
+];
+
+const categorie = [
+  { slug: "tutti", label: "Tutte" },
+  { slug: "primo", label: "🍜 Primi" },
+  { slug: "secondo", label: "🍖 Secondi" },
+  { slug: "dolce", label: "🍰 Dolci" },
+  { slug: "pane", label: "🍞 Pane" },
+  { slug: "antipasto", label: "🥗 Antipasti" },
+  { slug: "condimento", label: "🧀 Condimenti" },
+  { slug: "altro", label: "🌰 Altro" },
+];
+---
+
+<Layout title="Ricettario" description="19 ricette tradizionali di Civago: Bazzina, Necci, Vinada, Gnuclin d'castegn e molto altro.">
+
+  <div style="background:var(--marrone-scuro)" class="py-16 px-4 text-white">
+    <div class="max-w-6xl mx-auto">
+      <a href="/cultura" class="text-white/60 text-sm hover:text-white mb-3 block">← Cultura & Tradizioni</a>
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">🍄 Cucina tradizionale</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Ricettario</h1>
+      <p class="text-white/75 text-lg max-w-xl">
+        19 ricette dell'Alto Appennino emiliano tramandate di generazione in generazione.
+        Castagne, patate, forno a legna: la cucina povera e saporita di Civago.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-10">
+
+    <!-- Ricerca + Filtri -->
+    <div class="mb-8">
+      <input
+        type="text"
+        id="cerca-ricetta"
+        class="search-input mb-5"
+        placeholder="🔍 Cerca una ricetta… (es. castagne, patate, forno a legna)"
+      />
+      <div class="flex flex-wrap gap-2" id="filtri-categoria">
+        {categorie.map(c => (
+          <button
+            class="filtro-cat px-4 py-2 rounded-full text-sm font-medium transition-all"
+            data-cat={c.slug}
+          >
+            {c.label}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Griglia ricette -->
+    <div id="griglia-ricette" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {ricette.map(r => (
+        <div
+          class="card ricetta-card group cursor-pointer"
+          data-cat={r.categoria}
+          data-nome={r.nome.toLowerCase()}
+          data-desc={r.desc.toLowerCase()}
+          data-ingredienti={r.ingredienti.join(' ').toLowerCase()}
+        >
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-3">
+              <span class="text-4xl">{r.emoji}</span>
+              <span class="badge">{r.categoria}</span>
+            </div>
+            <h3 class="font-bold text-lg mb-1 group-hover:underline" style="color:var(--marrone-scuro)">{r.nome}</h3>
+            <div class="text-xs text-stone-400 mb-2">👥 {r.dosi}</div>
+            <p class="text-sm text-stone-500 leading-relaxed mb-4">{r.desc}</p>
+
+            <!-- Ingredienti (collapsible) -->
+            <details class="group/det">
+              <summary class="cursor-pointer text-sm font-semibold select-none" style="color:var(--verde-salvia)">
+                📝 Ingredienti & procedimento
+              </summary>
+              <div class="mt-3 border-t border-stone-100 pt-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Ingredienti</h4>
+                <ul class="text-sm text-stone-600 space-y-1 mb-4">
+                  {r.ingredienti.map(i => <li class="flex gap-2"><span class="text-stone-300">·</span>{i}</li>)}
+                </ul>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Procedimento</h4>
+                <div class="text-sm text-stone-600 leading-relaxed whitespace-pre-line">{r.procedimento}</div>
+              </div>
+            </details>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div id="nessun-risultato" class="hidden text-center py-12 text-stone-400">
+      <div class="text-4xl mb-3">🔍</div>
+      <p>Nessuna ricetta trovata. Prova con un altro termine.</p>
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+.filtro-cat {
+  background: white;
+  border: 1.5px solid var(--beige-scuro);
+  color: var(--testo-muted);
+}
+.filtro-cat.active {
+  background: var(--marrone);
+  border-color: var(--marrone);
+  color: white;
+}
+.filtro-cat:hover:not(.active) {
+  border-color: var(--marrone);
+  color: var(--marrone-scuro);
+}
+.ricetta-card.nascosta { display: none; }
+</style>
+
+<script>
+const cerca = document.getElementById('cerca-ricetta') as HTMLInputElement;
+const filtriBtn = document.querySelectorAll('.filtro-cat');
+let catAttiva = 'tutti';
+
+// Imposta "Tutte" come attivo di default
+document.querySelector('[data-cat="tutti"]')?.classList.add('active');
+
+function filtra() {
+  const testo = cerca?.value.toLowerCase() ?? '';
+  let visibili = 0;
+  document.querySelectorAll('.ricetta-card').forEach(card => {
+    const el = card as HTMLElement;
+    const matchCat = catAttiva === 'tutti' || el.dataset.cat === catAttiva;
+    const matchTesto = !testo ||
+      el.dataset.nome?.includes(testo) ||
+      el.dataset.desc?.includes(testo) ||
+      el.dataset.ingredienti?.includes(testo);
+    if (matchCat && matchTesto) {
+      el.classList.remove('nascosta');
+      visibili++;
+    } else {
+      el.classList.add('nascosta');
+    }
+  });
+  const nessuno = document.getElementById('nessun-risultato');
+  if (nessuno) nessuno.classList.toggle('hidden', visibili > 0);
+}
+
+cerca?.addEventListener('input', filtra);
+
+filtriBtn.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filtriBtn.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    catAttiva = (btn as HTMLElement).dataset.cat ?? 'tutti';
+    filtra();
+  });
+});
+</script>

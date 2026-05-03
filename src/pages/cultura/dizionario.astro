@@ -1,0 +1,116 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const voci = [
+  { termine: "a bagle", significato: "in giro, a gironzolare" },
+  { termine: "abgaciaa", significato: "schiacciato, spappolato, spiattellato" },
+  { termine: "abie", significato: "abbeveratoio per animali" },
+  { termine: "ablacarì", significato: "abbacchiato, appassito" },
+  { termine: "cadinela", significato: "catino, recipiente per liquidi" },
+  { termine: "cagadur", significato: "cacatoio, cesso, latrina all'aperto" },
+  { termine: "caganì", significato: "il più piccolo di una famiglia o nidiata" },
+  { termine: "cagna", significato: "fiacca, spossatezza; oppure leva di ferro" },
+  { termine: "èbbie", significato: "ebbio, sambuco selvatico" },
+  { termine: "èn'g(iu)", significato: "endice" },
+  { termine: "erba puta", significato: "acetosa, erba dal sapore asprigno" },
+  { termine: "malàcc", significato: "male cattivo, tumore" },
+  { termine: "malegugna", significato: "sinonimo di maledire" },
+  { termine: "mandadura", significato: "canale d'acqua per far scivolare la legna" },
+  { termine: "manicati", significato: "senilità, rimbambimento" },
+  { termine: "saldun", significato: "salda, terreno per pascolare le bestie" },
+  { termine: "salgada", significato: "massicciata, strada acciottolata" },
+  { termine: "sberzaraia", significato: "nevicata leggera e inconsistente" },
+  { termine: "sbiacar", significato: "schiacciare" },
+  { termine: "lvadur", significato: "pasta madre, lievito naturale per il pane" },
+  { termine: "metati", significato: "struttura per essiccare le castagne" },
+  { termine: "testi", significato: "pietre piane usate per cuocere i necci" },
+  { termine: "pizz", significato: "decorazione a pizzico sul bordo delle torte" },
+  { termine: "vetturini", significato: "mulattieri, conduttori di muli" },
+  { termine: "maestà", significato: "edicola votiva lungo i sentieri" },
+  { termine: "rogazioni", significato: "processioni rituali di maggio per benedire i raccolti" },
+  { termine: "maggio cantato", significato: "teatro popolare tradizionale in forma cantata" },
+  { termine: "coccino", significato: "gioco pasquale con le uova colorate" },
+];
+---
+
+<Layout title="Dizionario Dialettale" description="Il piccolo dizionario del dialetto civaghino, a cura di Alessandro Gaspari.">
+
+  <div style="background: linear-gradient(135deg, #3d2b00, #8B6914)" class="py-16 px-4 text-white">
+    <div class="max-w-6xl mx-auto">
+      <a href="/cultura" class="text-white/60 text-sm hover:text-white mb-3 block">← Cultura & Tradizioni</a>
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">🗣️ Lingua locale</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Piccolo Dizionario Dialettale</h1>
+      <p class="text-white/75 text-lg">
+        A cura di <strong class="text-white">Alessandro Gaspari</strong>.
+        Il dialetto civaghino: voci, termini e modi di dire dell'Alto Appennino reggiano.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4 py-12">
+
+    <!-- Ricerca -->
+    <div class="mb-8">
+      <input
+        id="cerca-voce"
+        type="text"
+        class="search-input"
+        placeholder="🔍 Cerca un termine dialettale o il suo significato…"
+      />
+      <div class="mt-2 text-xs text-stone-400" id="contatore">
+        {voci.length} voci nel dizionario
+      </div>
+    </div>
+
+    <!-- Dizionario -->
+    <div id="lista-voci" class="space-y-2">
+      {voci.sort((a,b) => a.termine.localeCompare(b.termine)).map(v => (
+        <div class="card p-4 voce-card flex gap-4 items-start" data-termine={v.termine.toLowerCase()} data-significato={v.significato.toLowerCase()}>
+          <div class="font-bold text-lg flex-shrink-0 w-40" style="color:var(--marrone); font-family:Georgia,serif; font-style:italic">
+            {v.termine}
+          </div>
+          <div class="text-stone-600 pt-0.5">{v.significato}</div>
+        </div>
+      ))}
+    </div>
+
+    <div id="nessuna-voce" class="hidden text-center py-10 text-stone-400">
+      <div class="text-4xl mb-3">🔍</div>
+      Nessun termine trovato. Prova con una parola diversa.
+    </div>
+
+    <!-- Nota -->
+    <div class="mt-12 p-6 rounded-2xl text-sm" style="background:var(--beige-scuro)">
+      <p class="text-stone-600 leading-relaxed">
+        📚 <strong>Dizionario parziale</strong> — Questo è un estratto del dizionario completo disponibile sul sito originale.
+        Per consultare tutte le voci visita
+        <a href="https://www.civago.it/piccolo-dizionario.html" target="_blank" class="underline" style="color:var(--verde-salvia)">civago.it/piccolo-dizionario.html</a>.
+      </p>
+      <p class="text-stone-500 mt-2">
+        💬 <strong>Conosci altri termini?</strong> Scrivici a <a href="mailto:info@civago.it" style="color:var(--verde-salvia)">info@civago.it</a> e li aggiungiamo!
+      </p>
+    </div>
+
+  </div>
+</Layout>
+
+<script>
+const input = document.getElementById('cerca-voce') as HTMLInputElement;
+const contatore = document.getElementById('contatore');
+const nessuna = document.getElementById('nessuna-voce');
+
+input?.addEventListener('input', () => {
+  const testo = input.value.toLowerCase().trim();
+  let visibili = 0;
+  document.querySelectorAll('.voce-card').forEach(card => {
+    const el = card as HTMLElement;
+    const match = !testo ||
+      el.dataset.termine?.includes(testo) ||
+      el.dataset.significato?.includes(testo);
+    if (match) { el.classList.remove('hidden'); visibili++; }
+    else el.classList.add('hidden');
+  });
+  if (contatore) contatore.textContent = `${visibili} voci trovate`;
+  if (nessuna) nessuna.classList.toggle('hidden', visibili > 0);
+});
+</script>

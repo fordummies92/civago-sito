@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const sezioniCultura = [
+  { icon: "🍄", titolo: "Ricettario", desc: "19 ricette tradizionali dell'Alto Appennino: dalla Bazzina ai Necci, dalla Vinada alla Torta di patate.", href: "/cultura/ricettario", count: "19 ricette" },
+  { icon: "📖", titolo: "Storia di Civago", desc: "Dalla preistoria ai partigiani: le ricerche storiche di Enrico Cafari e Romano Marchi.", href: "/cultura/storia", count: "8 documenti" },
+  { icon: "🎭", titolo: "Tradizioni Popolari", desc: "Il Maggio cantato, il Carnevale, i matrimoni, la Befana: come si viveva sull'Appennino.", href: "/cultura/tradizioni", count: "7 tradizioni" },
+  { icon: "✍️", titolo: "Poesie", desc: "Ralfo Monti, Antonietta Romiti, Graziano Gigli e altri voci dell'Appennino emiliano.", href: "/cultura/poesie", count: "15+ poesie" },
+  { icon: "🗣️", titolo: "Dizionario Dialettale", desc: "Il dizionario del dialetto civaghino curato da Alessandro Gaspari. Cerca un termine.", href: "/cultura/dizionario", count: "50+ voci" },
+];
+---
+
+<Layout title="Cultura & Tradizioni" description="Storia, ricette, poesie e tradizioni di Civago nell'Alto Appennino emiliano.">
+
+  <div style="background:var(--marrone)" class="py-16 px-4 text-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">🏺 Patrimonio culturale</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Cultura & Tradizioni</h1>
+      <p class="text-white/75 text-lg max-w-xl">
+        Storia millenaria, ricette antiche, dialetto e poesia: il patrimonio immateriale di un paese di montagna.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sezioniCultura.map(s => (
+        <a href={s.href} class="card p-6 block no-underline group">
+          <div class="text-4xl mb-3">{s.icon}</div>
+          <div class="badge mb-2">{s.count}</div>
+          <h2 class="font-bold text-xl mb-2 group-hover:underline" style="color:var(--marrone-scuro)">{s.titolo}</h2>
+          <p class="text-sm text-stone-500 leading-relaxed">{s.desc}</p>
+        </a>
+      ))}
+    </div>
+
+    <!-- Citazione -->
+    <div class="mt-16 text-center max-w-2xl mx-auto">
+      <div class="poesia text-xl text-stone-700 mb-4">
+"D'estate, quando spira un po' di vento<br/>
+somiglia invece a un vispo ragazzino<br/>
+che non riesce a star fermo un sol momento<br/>
+e gioca in mezzo al verde a nascondino."
+      </div>
+      <p class="text-sm text-stone-400">— Ralfo Monti, <em>Civago</em></p>
+    </div>
+  </div>
+</Layout>

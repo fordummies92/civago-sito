@@ -1,0 +1,143 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Scopri Civago" description="Storia, geografia e tutto quello che c'è da sapere su Civago, la perla verde dell'Alto Appennino emiliano.">
+
+  <!-- Hero -->
+  <div style="background: linear-gradient(135deg, #2D5016 0%, #6B8F3C 100%)" class="py-20 px-4 text-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">🏔️ Il paese</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Scopri Civago</h1>
+      <p class="text-white/75 text-lg max-w-xl">
+        La perla verde dell'Alto Appennino emiliano. Storia, geografia, come arrivare e dove dormire.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- Presentazione -->
+    <section class="mb-16">
+      <div class="prose-civago">
+        <h2>Chi siamo</h2>
+        <p>
+          <strong>Civago</strong> è un piccolo paese dell'Alto Appennino emiliano, situato nel comune di <strong>Villaminozzo (Reggio Emilia)</strong>, a circa 1.200 metri sul livello del mare. Si trova nel tratto più alto della valle del Dolo, ultimo centro abitato prima delle zone protette del <strong>Parco Nazionale Appennino Tosco-Emiliano</strong>.
+        </p>
+        <p>
+          Storicamente Civago era un punto di sosta obbligato lungo i percorsi commerciali e di pellegrinaggio che collegavano l'Emilia alla Garfagnana e a Lucca. La <em>Via delle Forbici</em> — l'antico valico — era percorsa da mercanti, pellegrini e pastori per secoli.
+        </p>
+        <p>
+          Il paesaggio spazia dai campi coltivati alle brughiere d'alta quota, passando per boschi di faggio, castagneti terrazzati e l'<strong>Abetina Reale</strong>, la più grande foresta di abeti rossi dell'Appennino emiliano.
+        </p>
+
+        <h2>Un po' di storia</h2>
+        <p>
+          I primi insediamenti nella zona risalgono al <strong>Paleolitico</strong> (~12.000 anni fa). Presenza romana attestata dalla "Necropoli della Gatta". Il paese si sviluppa come insediamento stabile tra il XVIII e il XIX secolo, partendo dai ripari temporanei dei pastori.
+        </p>
+        <p>
+          L'economia storica si basava su tre pilastri: la <strong>castanicoltura</strong> (le castagne erano il pane dei poveri), la <strong>selvicoltura</strong> e la <strong>transumanza</strong> stagionale. Nel corso dell'800 gli 418 abitanti producevano circa 500 "staie" di castagne l'anno.
+        </p>
+        <p>
+          Nel <strong>1963</strong> fu realizzata "Appenninia", una delle prime stazioni sciistiche dell'Appennino. Gli impianti di risalita arrivarono nel <strong>1967</strong>, trasformando il paese in meta turistica invernale. Nel corso del '900 Civago fu anche un importante punto di transito della <strong>Resistenza partigiana</strong>: circa 15.000 persone passarono per qui dirette verso i territori liberati.
+        </p>
+
+        <h2>Oggi</h2>
+        <p>
+          Civago conta tre alberghi, numerose seconde case e strutture ricettive. È il punto di partenza ideale per escursioni verso l'<strong>Abetina Reale</strong>, il <strong>Monte Prado</strong> (il secondo Appennino per altezza) e i rifugi alpini.
+        </p>
+        <p>
+          La comunità locale mantiene vive le tradizioni: la <em>Festa del Fungo</em> a settembre, la <em>Castagnata</em> a ottobre, e le antiche pratiche del Maggio cantato, del Carnevale e dei riti stagionali.
+        </p>
+      </div>
+    </section>
+
+    <!-- Dati in evidenza -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+      {[
+        { numero: "1.200 m", label: "Altitudine" },
+        { numero: "XIII sec.", label: "Prime attestazioni scritte" },
+        { numero: "13", label: "Sentieri escursionistici" },
+        { numero: "500+", label: "Foto storiche archiviate" },
+      ].map(d => (
+        <div class="card p-5 text-center">
+          <div class="text-2xl font-bold mb-1" style="color:var(--verde-bosco)">{d.numero}</div>
+          <div class="text-xs text-stone-400 uppercase tracking-wider">{d.label}</div>
+        </div>
+      ))}
+    </section>
+
+    <!-- Come arrivare -->
+    <section class="mb-16">
+      <h2 class="section-title">🚗 Come arrivare</h2>
+      <p class="section-subtitle">Civago — Comune di Villaminozzo (RE)</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card p-6">
+          <h3 class="font-bold text-lg mb-3" style="color:var(--verde-bosco)">In auto</h3>
+          <ul class="text-sm text-stone-600 space-y-2">
+            <li>• Da <strong>Reggio Emilia</strong>: SS 63 fino a Castelnovo ne' Monti, poi SP 98 verso Villa Minozzo e Civago (~1h 15min)</li>
+            <li>• Da <strong>Modena</strong>: SS 12 fino a Pavullo, poi verso Frassinoro (~1h 30min)</li>
+            <li>• Da <strong>La Spezia / Garfagnana</strong>: SP 69 e valico dell'Abetone (~2h)</li>
+          </ul>
+        </div>
+        <div class="card p-6">
+          <h3 class="font-bold text-lg mb-3" style="color:var(--verde-bosco)">Informazioni turistiche</h3>
+          <ul class="text-sm text-stone-600 space-y-2">
+            <li>📍 <a href="https://www.comune.villaminozzo.re.it" target="_blank" class="underline" style="color:var(--verde-salvia)">Comune di Villaminozzo</a></li>
+            <li>🏔️ <a href="https://www.parcoappennino.it" target="_blank" class="underline" style="color:var(--verde-salvia)">Parco Nazionale Appennino Tosco-Emiliano</a></li>
+            <li>ℹ️ IAT di Castelnovo ne' Monti</li>
+            <li>📧 <a href="mailto:info@civago.it" style="color:var(--verde-salvia)">info@civago.it</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mini mappa OpenStreetMap -->
+      <div class="card overflow-hidden mt-6">
+        <div id="mappa-arrivo" style="height: 300px;"></div>
+      </div>
+    </section>
+
+    <!-- Webcam -->
+    <section class="mb-16">
+      <h2 class="section-title mb-2">📷 Webcam live</h2>
+      <p class="section-subtitle">Piazza di Civago in tempo reale</p>
+      <div class="card overflow-hidden max-w-lg">
+        <div class="relative" style="padding-top:56.25%">
+          <img
+            src="http://www.cmelettroimpianti.it/webcam/civago000M.jpg"
+            alt="Webcam piazza Civago"
+            class="absolute inset-0 w-full h-full object-cover"
+            id="webcam-scopri"
+          />
+        </div>
+        <div class="p-3 flex items-center gap-2 text-xs text-stone-400 bg-white">
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+          Aggiornamento automatico ogni minuto
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Layout>
+
+<script define:vars={{}}>
+// Mappa arrivo
+function initMappaArrivo() {
+  if (typeof L === 'undefined') { setTimeout(initMappaArrivo, 200); return; }
+  const m = L.map('mappa-arrivo').setView([44.274, 10.407], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(m);
+  L.marker([44.274, 10.407])
+    .addTo(m)
+    .bindPopup('<b>Civago</b><br>1.200 m s.l.m.<br>Villaminozzo (RE)')
+    .openPopup();
+}
+document.addEventListener('DOMContentLoaded', initMappaArrivo);
+
+// Webcam refresh
+setInterval(() => {
+  const img = document.getElementById('webcam-scopri');
+  if (img) img.src = `http://www.cmelettroimpianti.it/webcam/civago000M.jpg?${Date.now()}`;
+}, 60000);
+</script>
