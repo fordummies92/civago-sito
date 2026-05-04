@@ -1,0 +1,144 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const tradizioni = [
+  {
+    icona: "🎭",
+    titolo: "Il Maggio cantato",
+    quando: "Inizio maggio",
+    descrizione: "Forma di teatro popolare tra le più genuine dell'Appennino. Una tradizione orale che si tramanda di generazione in generazione: cantori improvvisano in versi rievocando antichi poemi cavallereschi, vicende storiche, leggende. Una memoria collettiva che si rinnova ogni primavera nelle piazze e nelle case di Civago."
+  },
+  {
+    icona: "🎉",
+    titolo: "Carnevale",
+    quando: "Febbraio",
+    descrizione: "Tempo di maschere e burle. Ogni famiglia preparava in casa le frittelle (\"fritell\") da offrire ai visitatori travestiti che bussavano alla porta. Le maschere erano semplici, fatte con quello che si aveva: un fazzolettone, un cappello rovesciato, abiti vecchi. Ma l'allegria era contagiosa, e i bambini facevano il giro del paese per raccogliere dolci e sorrisi."
+  },
+  {
+    icona: "🥚",
+    titolo: "Pasqua e le uova colorate",
+    quando: "Pasqua",
+    descrizione: "I bambini coloravano le uova con foglie, fiori e tinte naturali, poi le facevano rotolare lungo le pendenze del paese in un gioco antico: vinceva chi riusciva a colpire l'uovo dell'avversario. Le uova rotte si mangiavano sul posto, quelle intere venivano custodite gelosamente."
+  },
+  {
+    icona: "🎁",
+    titolo: "Capodanno: gli auguri di casa in casa",
+    quando: "1° gennaio",
+    descrizione: "Il primo giorno dell'anno i bambini visitavano le case del paese, una a una, per portare gli auguri agli adulti. In cambio ricevevano caramelle, qualche soldo, dolcetti fatti in casa. Era un modo per rinsaldare i legami di vicinato all'inizio del nuovo anno."
+  },
+  {
+    icona: "💍",
+    titolo: "Matrimoni di paese",
+    quando: "Tutto l'anno",
+    descrizione: "Un matrimonio era un evento condiviso da tutto Civago. La sposa veniva accompagnata in chiesa dall'intero paese, e dopo la cerimonia si distribuivano i \"Confetti di Nozze\" (vedi ricettario): piccoli biscotti irrorati di liquore Sassolino preparati per giorni. Il banchetto era preparato in casa con il contributo di vicini e parenti."
+  },
+  {
+    icona: "✝️",
+    titolo: "Pellegrinaggi",
+    quando: "Storico",
+    descrizione: "Civago era una tappa storica sulle rotte di pellegrinaggio verso Roma e Santiago de Compostela. L'Ospizio di San Leonardo del Dolo, attivo dall'XI secolo, offriva ai viandanti \"pane, vino e conforto\". Lungo i sentieri si possono ancora vedere le maestà — piccole edicole votive che indicavano la strada e proteggevano i pellegrini."
+  },
+  {
+    icona: "📖",
+    titolo: "Filastrocche, proverbi e dialetto",
+    quando: "Patrimonio orale",
+    descrizione: "Il dialetto emiliano della valle del Dolo conserva un patrimonio di filastrocche, proverbi e modi di dire tramandati oralmente. Espressioni colorite, suoni antichi, parole che raccontano un modo di vivere. Tutto questo è raccolto nel piccolo dizionario dialettale curato dalla comunità di Civago."
+  },
+];
+
+const filastrocche = [
+  {
+    titolo: "Sull'arrivo del freddo",
+    testo: "Quand i fagh a bütan,\nl'inverno ven da bon."
+  },
+  {
+    titolo: "Sulla pioggia di San Lorenzo",
+    testo: "Acqua d'agost,\nfa la castagna grossa."
+  },
+];
+---
+
+<Layout title="Tradizioni Popolari di Civago" description="Il Maggio cantato, il Carnevale, i matrimoni, le filastrocche: come si viveva sull'Appennino reggiano.">
+
+  <!-- Hero -->
+  <div style="background: linear-gradient(135deg, #5C440D, #8B6914)" class="py-14 px-4 text-white">
+    <div class="max-w-4xl mx-auto">
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">🎭 Cultura</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Tradizioni Popolari</h1>
+      <p class="text-white/85 text-lg max-w-xl">
+        Il Maggio cantato, il Carnevale, i matrimoni di paese, le filastrocche in dialetto:
+        come si viveva — e come si vive ancora — sull'Appennino reggiano.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- Lista tradizioni -->
+    <section class="mb-12">
+      <h2 class="section-title">📜 Le sette tradizioni</h2>
+      <p class="section-subtitle">Riti, feste, gesti che ancora oggi raccontano Civago</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {tradizioni.map(t => (
+          <article class="card p-6 h-full">
+            <div class="flex items-start justify-between mb-3 gap-3">
+              <span class="text-4xl flex-shrink-0">{t.icona}</span>
+              <span class="badge text-right">{t.quando}</span>
+            </div>
+            <h3 class="text-xl font-bold mb-2" style="color:var(--verde-bosco)">{t.titolo}</h3>
+            <p class="text-sm leading-relaxed" style="color:#3a3a3a;line-height:1.7">{t.descrizione}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Filastrocche -->
+    <section class="card p-7 md:p-10 mb-10" style="background:var(--beige-scuro)">
+      <div class="badge mb-3">Patrimonio orale</div>
+      <h2 class="text-2xl md:text-3xl font-bold mb-5" style="color:var(--marrone-scuro)">
+        Filastrocche e proverbi in dialetto
+      </h2>
+      <p class="mb-6" style="color:#2d2d2d">
+        Brevi versi che gli anziani di Civago tramandavano ai bambini accanto al fuoco,
+        nei mesi d'inverno o durante il lavoro nei campi.
+      </p>
+
+      <div class="space-y-5">
+        {filastrocche.map(f => (
+          <div class="border-l-4 pl-5 py-2" style="border-color:var(--marrone)">
+            <div class="text-xs font-semibold mb-2" style="color:var(--marrone)">{f.titolo}</div>
+            <div class="poesia text-base">{f.testo}</div>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-sm mt-6" style="color:var(--testo-muted)">
+        Per il dizionario dialettale completo, visita la pagina <a href="/cultura/dizionario" style="color:var(--marrone);font-weight:600">📖 Dizionario di Civago →</a>
+      </p>
+    </section>
+
+    <!-- Box: anche il ricettario -->
+    <section class="card p-7" style="background:var(--verde-bosco)">
+      <div class="text-white">
+        <h3 class="text-2xl font-bold text-white mb-2">🍂 Tradizioni a tavola</h3>
+        <p class="text-white/85 mb-4 leading-relaxed">
+          Le tradizioni di Civago vivono anche nei piatti: la <strong>Vinada</strong> dei boscaioli,
+          le <strong>Frittelle del Carnevale</strong>, i <strong>Confetti di Nozze</strong>,
+          i <strong>Befanini</strong> dei bambini il 6 gennaio. Tutte le ricette sono raccolte
+          nel ricettario.
+        </p>
+        <a href="/cultura/ricettario" class="btn-outline" style="border-color:white;color:white">
+          🥄 Vai al ricettario →
+        </a>
+      </div>
+    </section>
+
+    <!-- Link torna -->
+    <div class="text-center mt-10">
+      <a href="/cultura" class="btn-outline">← Torna alla sezione Cultura</a>
+    </div>
+
+  </div>
+
+</Layout>

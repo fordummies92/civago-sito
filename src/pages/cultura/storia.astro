@@ -1,0 +1,162 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const documenti = [
+  {
+    titolo: "Un monumento ai combattenti",
+    data: "3 luglio 1977",
+    luogo: "Case Cattalini (1142 m)",
+    contenuto: "Monumento dedicato ai 3.182 partigiani emiliani andati all'estero (di cui 612 caduti) e ai 1.401 stranieri combattuti in regione (134 morti). Opera dell'artista Alessandro Caloi: un cubo di cemento inclinato a rappresentare il nazifascismo, con un partigiano in marmo di 240 quintali. Civago fu punto di transito della Resistenza: circa 15.000 persone passate in 6-7 mesi verso i territori liberati."
+  },
+  {
+    titolo: "Caduti nella Grande Guerra",
+    data: "1915–1918",
+    luogo: "Stampa commemorativa di Romano Marchi",
+    contenuto: "Con fotografia: Raffaelli D. (1887), Catalini D., Marchio Gio. (1880), Romiti Gaetano, Cecchini Do. (1889), Monti Domenico, Gaspari A., Monti Paolo, Catalini G. (1896), Bertolotti G. (1891), Magnani (1898), Romiti Pietro, Marchi A. (1885), Gaspari G. (1891), Magnani E. Senza fotografia: Castagni Giacomo (1898), Cecchini Angelo (1882), Gigli Duilio (1895)."
+  },
+  {
+    titolo: "La corriera a Civago",
+    data: "1924",
+    luogo: "Canzone di Umberto Monti",
+    contenuto: "Canzone storica composta da Umberto Monti per celebrare l'arrivo del servizio di autobus da Villa Minozzo, completamento di una strada che ha richiesto trent'anni di lavori e che ha aperto Civago al mondo moderno."
+  },
+  {
+    titolo: "Lo sci a Civago — Le origini",
+    data: "1924–1952",
+    luogo: "Ricerca di Graziano Gigli",
+    contenuto: "1924: Leonardo Gaspari della Romita, tornato dagli Alpini di Bardonecchia, è considerato \"il padre fondatore dello sci a Civago\". I primi sci furono costruiti artigianalmente nel 1926. Nel 1950 si svolge la prima gara di fondo. Nel 1952 nasce lo \"SCI CLUB LUPI DELLA MONTAGNA DI CIVAGO\", affiliato al CSI di Reggio Emilia."
+  },
+  {
+    titolo: "Lo sci a Civago — L'evoluzione",
+    data: "1967–1990",
+    luogo: "Storia degli impianti",
+    contenuto: "1967: apertura degli impianti di risalita. Negli anni '80–'90: formazione di maestri e squadre giovanili. 16 maestri di sci formati localmente, campioni regionali e atleti che hanno raggiunto le finali nazionali. Lo sci si trasforma da mezzo di trasporto invernale a sport competitivo riconosciuto."
+  },
+  {
+    titolo: "Pascoli, armenti e antichi abitati",
+    data: "1450–1827",
+    luogo: "Valle dei Porci",
+    contenuto: "Dispute storiche sui diritti di pascolo nella valle dei Porci, al confine tra Toscana ed Emilia. 1450: primi documenti. 1451: Borso d'Este riconosce a Soraggio il diritto di pascolo, con un tributo curioso — un orso vivo! 1709: processo con perito corrotto. 1715: sentenza annullata. 1827: piantati i \"termini\" di confine, con sanzioni di 3 lire per animali grandi e 3 guardaboschi a sorvegliare."
+  },
+  {
+    titolo: "Il traforo della Torre",
+    data: "1953–1957",
+    luogo: "Torre dell'Amorotto",
+    contenuto: "La galleria della Torre dell'Amorotto fu costruita tra il 1953 e il 1957 dalla ditta Benassi con manodopera locale. Squadre di 6 persone lavoravano in turni di 8 ore. Il primo sfondamento avvenne nel 1954. Quest'opera permise lo sviluppo turistico di Civago, rendendo finalmente accessibile il paese in tutte le stagioni."
+  },
+  {
+    titolo: "Un passaporto del 1865",
+    data: "30 ottobre 1865",
+    luogo: "Documento di famiglia",
+    contenuto: "Passaporto di Giuseppe Gigli di Giovanni — 25 anni, bracciante, capelli castani, occhi azzurri, barba bionda — rilasciato dal Prefetto di Reggio Emilia il 30/10/1865 per un viaggio in Austria e Francia. Il documento è ancora conservato dal nipote Luigi Gigli."
+  },
+];
+---
+
+<Layout title="Storia di Civago" description="Dalla preistoria ai partigiani: ricerche storiche di Enrico Cafari, Romano Marchi e altri studiosi locali.">
+
+  <!-- Hero -->
+  <div style="background: linear-gradient(135deg, #1a1a2e, #2D5016)" class="py-14 px-4 text-white">
+    <div class="max-w-4xl mx-auto">
+      <div class="badge mb-3" style="background:rgba(255,255,255,0.15);color:white">📖 Cultura</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Storia di Civago</h1>
+      <p class="text-white/75 text-lg max-w-xl">
+        Dalla preistoria alla Resistenza, dai pellegrini medievali allo sci moderno: le ricerche storiche su Civago raccolte da Enrico Cafari, Romano Marchi e altri studiosi locali.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- Ricerca Cafari: origini -->
+    <section class="card p-7 md:p-10 mb-10">
+      <div class="badge mb-3">Ricerca di Enrico Cafari</div>
+      <h2 class="text-2xl md:text-3xl font-bold mb-5" style="color:var(--verde-bosco)">
+        Civago e l'Alta Valle del Dolo
+      </h2>
+
+      <div class="prose-civago">
+        <h3>Origini e preistoria</h3>
+        <ul>
+          <li>Cacciatori paleolitici circa <strong>12.000 anni fa</strong></li>
+          <li>Insediamenti mesolitici e neolitici</li>
+          <li>Presenza romana: la <strong>"Necropoli della Gatta"</strong> e la torre di Pompeo Magno</li>
+          <li>Sviluppo da ripari di pastori a insediamento permanente (XVIII–XIX secolo)</li>
+          <li>Popolazione massima di circa <strong>1.000 abitanti</strong> nella prima industrializzazione; 418 abitanti all'inizio dell'800</li>
+        </ul>
+
+        <h3>Economia storica</h3>
+        <ul>
+          <li><strong>Transumanza stagionale</strong> tra valle e crinale</li>
+          <li><strong>Selvicoltura:</strong> produzione di carbone, legname, trasporto del legno</li>
+          <li><strong>Castanicoltura:</strong> ossatura economica del paese (500 "staie"/anno, circa 70 kg per abitante)</li>
+          <li><strong>Artigiani:</strong> scalpellini, sarti, fabbri, mulattieri</li>
+        </ul>
+
+        <h3>Tradizioni religiose</h3>
+        <ul>
+          <li><strong>Maestà</strong> (edicole votive) disseminate lungo i percorsi di pellegrinaggio</li>
+          <li><strong>Rogazioni:</strong> processioni di maggio per benedire i raccolti</li>
+        </ul>
+
+        <h3>La Via delle Forbici</h3>
+        <p>
+          Antica via commerciale tra Lucchesia e Reggiano che attraversava il crinale appenninico. Era percorsa dai mercanti medievali nonostante i frequenti pericoli di rapina, ed è stata sostituita solo dalle strade moderne.
+        </p>
+
+        <h3>Strutture storiche notevoli</h3>
+        <p>
+          <strong>Torre dell'Amorotto:</strong> torre cilindrica che si erge sul fiume Dolo. Fu della famiglia Da Dallo prima di passare a Domenico "Amorotto" De Bretti, brigante leggendario, intorno al 1500.
+        </p>
+        <p>
+          <strong>Ospizio di San Leonardo del Dolo:</strong> tappa dell'XI secolo per i pellegrini in viaggio verso Roma e Santiago de Compostela, dove offrivano "pane, vino e conforto". Deteriorato nel 1442, è stato ricostruito nel 2004.
+        </p>
+      </div>
+    </section>
+
+    <!-- Romano Marchi -->
+    <section class="card p-7 md:p-10 mb-10" style="background:var(--beige-scuro)">
+      <div class="badge mb-3">Ricerche di Romano Marchi</div>
+      <h2 class="text-2xl md:text-3xl font-bold mb-5" style="color:var(--marrone-scuro)">
+        Le famiglie di Civago e l'emigrazione
+      </h2>
+      <div class="prose-civago">
+        <ul>
+          <li><strong>Genealogia storica</strong> delle famiglie di Civago, ricostruita su base documentale</li>
+          <li><strong>Tavole genealogiche</strong> in formato PDF scaricabile</li>
+          <li><strong>"In America voglio andar":</strong> ricerca sull'emigrazione di civaghesi verso gli USA, basata sul database di Ellis Island</li>
+        </ul>
+        <p class="text-sm" style="color:var(--testo-muted)">
+          I documenti originali e le tavole genealogiche complete sono ancora consultabili sul sito storico
+          <a href="https://www.civago.it" target="_blank" rel="noopener" style="color:var(--marrone)">civago.it</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Documenti storici -->
+    <section class="mb-10">
+      <h2 class="section-title">📜 Documenti storici</h2>
+      <p class="section-subtitle">Otto frammenti di memoria di Civago</p>
+
+      <div class="space-y-5">
+        {documenti.map(d => (
+          <article class="card p-6 md:p-7">
+            <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+              <h3 class="text-xl font-bold" style="color:var(--verde-bosco)">{d.titolo}</h3>
+              <span class="badge">📅 {d.data}</span>
+            </div>
+            <div class="text-xs mb-3" style="color:var(--marrone)">📍 {d.luogo}</div>
+            <p class="leading-relaxed" style="color:#2d2d2d;line-height:1.75">{d.contenuto}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Link torna -->
+    <div class="text-center">
+      <a href="/cultura" class="btn-outline">← Torna alla sezione Cultura</a>
+    </div>
+
+  </div>
+
+</Layout>
