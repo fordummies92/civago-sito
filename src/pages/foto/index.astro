@@ -74,6 +74,41 @@ const gruppi = [
       { nome: 'Installazione Defibrillatore 2016', dir: 'defibrillatore_24_04_16' },
     ]
   },
+  {
+    id: 'don-paolo',
+    titolo: 'Le Foto di Don Paolo',
+    icona: '⛪',
+    desc: 'L\'archivio fotografico di Don Paolo Tazzioli, parroco di Civago per 40 anni (anni \'40–\'80). Un patrimonio storico irripetibile.',
+    gallerie: [
+      { nome: 'Civago e la sua gente', dir: 'archivio_donpaolo_civago_gente' },
+      { nome: 'Cerimonie', dir: 'archivio_donpaolo_cerimonie' },
+      { nome: 'Gruppi famigliari', dir: 'archivio_gruppi_famigliari' },
+      { nome: 'Giovani e ragazzi', dir: 'archivio_donpaolo_giovani_ragazzi' },
+      { nome: 'Festa degli alberi', dir: 'archivio_donpaolo_festa_alberi' },
+      { nome: 'Carnevale coi bambini', dir: 'archivio_donpaolo_carnevale' },
+      { nome: 'Gite', dir: 'archivio_donpaolo_gite' },
+      { nome: 'Neve a Civago', dir: 'archivio_donpaolo_neve' },
+      { nome: 'Foto scattate a Don Paolo', dir: 'archivio_donpaolo_a_donpaolo' },
+    ]
+  },
+  {
+    id: 'amarcord',
+    titolo: 'Amarcord',
+    icona: '🗃️',
+    desc: 'Dal fondo dei cassetti riappaiono vecchie fotografie: volti, ricordi, storie di comunità.',
+    gallerie: [
+      { nome: 'Una volta a Civago', dir: 'una_volta' },
+    ]
+  },
+  {
+    id: 'cartoline',
+    titolo: 'Civago in Cartolina',
+    icona: '📬',
+    desc: 'Cartoline d\'epoca dagli anni \'20 agli anni \'50: panoramiche, vedute storiche, l\'Albergo Ponte del 1930.',
+    gallerie: [
+      { nome: 'Cartoline d\'epoca (1929–1955)', dir: '29' },
+    ]
+  },
 ];
 
 // Attach actual images to each gallery
@@ -182,45 +217,6 @@ const totaleFoto = gruppiConFoto.reduce((sum, g) =>
         ))}
       </section>
     ))}
-
-    <!-- Don Paolo / Amarcord / Cartoline (link al sito vecchio) -->
-    <section class="mb-16">
-      <h2 class="text-2xl md:text-3xl font-bold mb-2" style="color:var(--verde-bosco)">
-        📷 Archivio Storico
-      </h2>
-      <p class="text-sm mb-6" style="color:var(--testo-muted)">
-        Le fotografie storiche di Don Paolo Tazzioli, l'Amarcord e le cartoline d'epoca sono ancora consultabili sul sito originale.
-      </p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a href="https://www.civago.it/le-foto-di-don-paolo.html" target="_blank" rel="noopener"
-           class="card p-6 block group">
-          <div class="text-4xl mb-3">⛪</div>
-          <h3 class="font-bold text-lg mb-1 group-hover:underline" style="color:var(--verde-bosco)">Le Foto di Don Paolo</h3>
-          <p class="text-sm text-stone-500 leading-relaxed mb-3">
-            Oltre 500 immagini scattate da Don Paolo Tazzioli, parroco di Civago per 40 anni (anni '40–'80).
-          </p>
-          <span class="text-xs font-semibold" style="color:var(--marrone)">Vai alle foto →</span>
-        </a>
-        <a href="https://www.civago.it/amarcord.html" target="_blank" rel="noopener"
-           class="card p-6 block group">
-          <div class="text-4xl mb-3">🗃️</div>
-          <h3 class="font-bold text-lg mb-1 group-hover:underline" style="color:var(--verde-bosco)">Amarcord</h3>
-          <p class="text-sm text-stone-500 leading-relaxed mb-3">
-            Dal fondo dei cassetti riappaiono vecchie fotografie: volti, ricordi, storie di comunità.
-          </p>
-          <span class="text-xs font-semibold" style="color:var(--marrone)">Vai alle foto →</span>
-        </a>
-        <a href="https://www.civago.it/civago-in-cartolina.html" target="_blank" rel="noopener"
-           class="card p-6 block group">
-          <div class="text-4xl mb-3">📬</div>
-          <h3 class="font-bold text-lg mb-1 group-hover:underline" style="color:var(--verde-bosco)">Civago in Cartolina</h3>
-          <p class="text-sm text-stone-500 leading-relaxed mb-3">
-            Cartoline d'epoca dagli anni '20 agli anni '50: panoramiche, vedute storiche, l'Albergo Ponte.
-          </p>
-          <span class="text-xs font-semibold" style="color:var(--marrone)">Vai alle foto →</span>
-        </a>
-      </div>
-    </section>
 
     <!-- Invia le tue foto -->
     <div class="card p-8" style="background:var(--verde-bosco)">
