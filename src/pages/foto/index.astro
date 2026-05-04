@@ -3,7 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const BASE_PATH = '/Users/marconasu/Desktop/dummies/civago-sito/public/immagini/gallerie';
+// Percorso portabile: funziona su qualsiasi macchina (locale o Netlify)
+const BASE_PATH = path.resolve(process.cwd(), 'public/immagini/gallerie');
 
 function leggiImmagini(cartella: string): string[] {
   const full = path.join(BASE_PATH, cartella);
